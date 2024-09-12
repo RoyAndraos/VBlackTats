@@ -343,7 +343,6 @@ const getFlashTattoos = async (req, res) => {
 
     // Check if the result contains resources (images)
     const images = result.resources;
-
     if (images && images.length > 0) {
       const db = client.db("VeroTattoo");
       const imagesData = await db.collection("Flash").find().toArray();
@@ -506,7 +505,6 @@ const uploadLandingPageImage = async (req, res) => {
     //remove oldImage then upload the new one
     const result = await cloudinary.uploader.destroy(`${oldImage}`);
     if (result.result === "ok") {
-      console.log("Old image deleted, uploading new one");
       // Upload the file buffer to Cloudinary
       const uploadStream = cloudinary.uploader.upload_stream(
         { folder: "LandingPage" },

@@ -32,7 +32,7 @@ const app = express();
 
 const allowedOrigins = [
   "http://localhost:3000",
-  "https://master--vblacktattoos.netlify.app",
+  "https://vblacktattoos.netlify.app",
 ];
 app.use(
   cors({

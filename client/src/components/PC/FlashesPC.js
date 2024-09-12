@@ -30,7 +30,7 @@ const FlashesPC = () => {
       setIsAdmin(true);
     }
     setLoading(true);
-    fetch("https://vblacktats.onrender.com/getFlash")
+    fetch("http://localhost:5000/getFlash")
       .then((res) => res.json())
       .then((data) => {
         if (data.message === "No images found") {

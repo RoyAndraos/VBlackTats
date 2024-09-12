@@ -42,7 +42,7 @@ const App = () => {
           <Route path="/book/:id" element={<BookingFormFlashPC />} />
           <Route path="/tattoos" element={<TattoosPC />} />
           <Route path="/flashes" element={<FlashesPC />} />
-          <Route path="/" element={<HomePagePC>HomepagePC</HomePagePC>} />
+          <Route path="/" element={<HomePagePC />} />
         </Routes>
       )}
       {isMobile ? <HeaderMobile /> : <HeaderPC />}
