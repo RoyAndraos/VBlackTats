@@ -25,7 +25,7 @@ const HomePageMobile = () => {
     if (token) {
       setIsAdmin(true);
     }
-    fetch("http://localhost:5000/getLandingPageImage")
+    fetch("https://vblacktats.onrender.com/getLandingPageImage")
       .then((res) => res.json())
       .then((data) => {
         setImage(data.data[0]);
@@ -46,7 +46,7 @@ const HomePageMobile = () => {
       formData.append("file", selectedFile);
       formData.append("oldImage", oldImageId);
       setLoading(true);
-      fetch("http://localhost:5000/uploadLandingPageImage", {
+      fetch("https://vblacktats.onrender.com/uploadLandingPageImage", {
         method: "POST",
         body: formData,
       })

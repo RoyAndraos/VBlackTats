@@ -23,7 +23,7 @@ const TattoosPC = () => {
       setIsAdmin(true);
     }
     setLoading(true);
-    fetch("http://localhost:5000/getTattoos")
+    fetch("https://vblacktats.onrender.com/getTattoos")
       .then((res) => res.json())
       .then((data) => {
         if (data.message === "No images found") {
@@ -52,7 +52,7 @@ const TattoosPC = () => {
       const formData = new FormData();
       formData.append("file", selectedFile);
 
-      fetch("http://localhost:5000/uploadTattoo", {
+      fetch("https://vblacktats.onrender.com/uploadTattoo", {
         method: "POST",
         body: formData,
       })
@@ -78,7 +78,7 @@ const TattoosPC = () => {
   };
 
   const handleConfirmDelete = () => {
-    fetch(`http://localhost:5000/deleteTattoo/${deleteId}`, {
+    fetch(`https://vblacktats.onrender.com/deleteTattoo/${deleteId}`, {
       method: "DELETE",
     })
       .then((res) => res.json())

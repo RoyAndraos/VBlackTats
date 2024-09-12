@@ -70,10 +70,13 @@ const BookingForm = () => {
     });
 
     try {
-      const response = await fetch("http://localhost:5000/submitBooking", {
-        method: "POST",
-        body: formDataToSend,
-      });
+      const response = await fetch(
+        "https://vblacktats.onrender.com/submitBooking",
+        {
+          method: "POST",
+          body: formDataToSend,
+        }
+      );
 
       const result = await response.json();
 

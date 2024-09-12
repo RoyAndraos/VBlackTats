@@ -30,7 +30,7 @@ const FlashesPC = () => {
       setIsAdmin(true);
     }
     setLoading(true);
-    fetch("http://localhost:5000/getFlash")
+    fetch("https://vblacktats.onrender.com/getFlash")
       .then((res) => res.json())
       .then((data) => {
         if (data.message === "No images found") {
@@ -63,7 +63,7 @@ const FlashesPC = () => {
         formData.append("artName", formDataInfo.name);
       }
 
-      fetch("http://localhost:5000/uploadFlashImage", {
+      fetch("https://vblacktats.onrender.com/uploadFlashImage", {
         method: "POST",
         body: formData,
       })
@@ -91,7 +91,7 @@ const FlashesPC = () => {
   };
 
   const handleConfirmDelete = () => {
-    fetch(`http://localhost:5000/deleteFlash/${deleteId}`, {
+    fetch(`https://vblacktats.onrender.com/deleteFlash/${deleteId}`, {
       method: "DELETE",
     })
       .then((res) => res.json())

@@ -30,7 +30,7 @@ const BookingFormFlash = () => {
   const { language } = useContext(LanguageContext);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/getFlashById/${params.id}`)
+    fetch(`https://vblacktats.onrender.com/getFlashById/${params.id}`)
       .then((res) => res.json())
       .then((data) => {
         const imageData = data.data[0];
@@ -63,10 +63,13 @@ const BookingFormFlash = () => {
     formDataToSend.append("tattooRef", formData.tattooRef);
 
     try {
-      const response = await fetch("http://localhost:5000/submitBookingFlash", {
-        method: "POST",
-        body: formDataToSend,
-      });
+      const response = await fetch(
+        "https://vblacktats.onrender.com/submitBookingFlash",
+        {
+          method: "POST",
+          body: formDataToSend,
+        }
+      );
       const data = await response.json();
       if (data.success) {
         alert("Booking submitted successfully");

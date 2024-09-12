@@ -20,7 +20,7 @@ const FeaturedWork = () => {
       setIsAdmin(true);
     }
     setLoading(true);
-    fetch("http://localhost:5000/getFeatured")
+    fetch("https://vblacktats.onrender.com/getFeatured")
       .then((res) => res.json())
       .then((data) => {
         if (data.message === "No images found") {
@@ -49,7 +49,7 @@ const FeaturedWork = () => {
       const formData = new FormData();
       formData.append("file", selectedFile);
 
-      fetch("http://localhost:5000/uploadFeatured", {
+      fetch("https://vblacktats.onrender.com/uploadFeatured", {
         method: "POST",
         body: formData,
       })
@@ -75,7 +75,7 @@ const FeaturedWork = () => {
   };
 
   const handleConfirmDelete = () => {
-    fetch(`http://localhost:5000/deleteFeatured/${deleteId}`, {
+    fetch(`https://vblacktats.onrender.com/deleteFeatured/${deleteId}`, {
       method: "DELETE",
     })
       .then((res) => res.json())

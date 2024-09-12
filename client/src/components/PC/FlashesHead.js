@@ -12,7 +12,7 @@ const FlashesHead = () => {
   const { isAdmin } = useContext(IsAdminContext);
 
   useEffect(() => {
-    fetch("http://localhost:5000/getFlashesPageImage")
+    fetch("https://vblacktats.onrender.com/getFlashesPageImage")
       .then((res) => res.json())
       .then((data) => {
         setHeadImage(data.data[0]);
@@ -34,7 +34,7 @@ const FlashesHead = () => {
       formData.append("file", selectedFileForHead);
       formData.append("oldImage", oldImageId);
       setLoading(true);
-      fetch("http://localhost:5000/uploadFlashesImage", {
+      fetch("https://vblacktats.onrender.com/uploadFlashesImage", {
         method: "POST",
         body: formData,
       })

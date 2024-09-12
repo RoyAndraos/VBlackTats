@@ -13,7 +13,7 @@ const TattoosHead = () => {
   const { isAdmin } = useContext(IsAdminContext);
 
   useEffect(() => {
-    fetch("http://localhost:5000/getTattoosPageImage")
+    fetch("https://vblacktats.onrender.com/getTattoosPageImage")
       .then((res) => res.json())
       .then((data) => {
         setHeadImage(data.data[0]);
@@ -35,7 +35,7 @@ const TattoosHead = () => {
       formData.append("file", selectedFileForHead);
       formData.append("oldImage", oldImageId);
       setLoading(true);
-      fetch("http://localhost:5000/uploadTattoosImage", {
+      fetch("https://vblacktats.onrender.com/uploadTattoosImage", {
         method: "POST",
         body: formData,
       })
