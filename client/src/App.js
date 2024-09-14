@@ -26,13 +26,62 @@ const App = () => {
     <Wrapper>
       {isMobile ? (
         <Routes>
-          <Route path="/admin" element={<Login />} />
-          <Route path="/afterCare" element={<AfterCare />} />
-          <Route path="/book" element={<BookingForm />} />
-          <Route path="/book/:id" element={<BookingFormFlash />} />
-          <Route path="/tattoos" element={<TattoosMobile />} />
-          <Route path="/flashes" element={<FlashesMobile />} />
-          <Route path="/" element={<HomePageMobile />} />
+          <Route
+            path="/admin"
+            element={
+              <TransitionComponent>
+                <Login />
+              </TransitionComponent>
+            }
+          />
+          <Route
+            path="/afterCare"
+            element={
+              <TransitionComponent>
+                <AfterCare />
+              </TransitionComponent>
+            }
+          />
+          <Route
+            path="/book"
+            element={
+              <TransitionComponent>
+                <BookingForm />
+              </TransitionComponent>
+            }
+          />
+          <Route
+            path="/book/:id"
+            element={
+              <TransitionComponent>
+                <BookingFormFlash />
+              </TransitionComponent>
+            }
+          />
+          <Route
+            path="/tattoos"
+            element={
+              <TransitionComponent>
+                <TattoosMobile />
+              </TransitionComponent>
+            }
+          />
+          <Route
+            path="/flashes"
+            element={
+              <TransitionComponent>
+                <FlashesMobile />
+              </TransitionComponent>
+            }
+          />
+          <Route
+            path="/"
+            element={
+              <TransitionComponent>
+                <HomePageMobile />
+              </TransitionComponent>
+            }
+          />
         </Routes>
       ) : (
         <Routes>
