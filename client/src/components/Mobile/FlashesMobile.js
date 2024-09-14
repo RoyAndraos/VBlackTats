@@ -280,7 +280,7 @@ const AddButton = styled.button`
   background-color: #241441;
   border: none;
   color: whitesmoke;
-  font-size: 2rem;
+  font-size: 1.2rem;
   border-radius: 50%;
   width: 50px;
   height: 50px;
@@ -337,7 +337,7 @@ const Flash = styled.div`
 const Delete = styled.button`
   background-color: #c90000;
   border: none;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   color: whitesmoke;
   border-radius: 50%;
   font-family: "roboto", sans-serif;

@@ -94,7 +94,7 @@ const Menu = styled.div`
   color: #241441;
   background-color: ${({ $isOpen }) => ($isOpen ? "#bbabe8" : "transparent")};
   position: fixed;
-  top: ${({ $isOpen }) => ($isOpen ? "0" : "-100%")};
+  top: ${({ $isOpen }) => ($isOpen ? "0" : "-200%")};
   left: 0;
   font-size: 1.5rem;
   transition: 0.5s ease-in-out;
