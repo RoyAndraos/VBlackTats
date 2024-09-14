@@ -1,14 +1,32 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import Navbar from "./Navbar";
 import styled from "styled-components";
 import newlogo from "../../assets/NewLogo.png";
 import { useLocation, useNavigate } from "react-router-dom";
+import gsap from "gsap";
 const HeaderMobile = () => {
   const navigate = useNavigate();
   const location = useLocation().pathname;
+  const logoRef = useRef(null);
+  useEffect(() => {
+    gsap.fromTo(
+      logoRef.current,
+      {
+        opacity: 0,
+        x: 100,
+      },
+      {
+        x: 0,
+        opacity: 1,
+        duration: 1,
+        delay: 1,
+      }
+    );
+  }, []);
   return (
     <Wrapper>
       <Logo
+        ref={logoRef}
         onClick={() => {
           navigate("/");
         }}

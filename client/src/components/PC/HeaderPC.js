@@ -3,15 +3,53 @@ import logo from "../../assets/LOGO.svg";
 import NavbarPC from "./NavbarPC";
 import { useNavigate } from "react-router-dom";
 import { FaArrowRightLong } from "react-icons/fa6";
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
 const HeaderPC = () => {
   const navigate = useNavigate();
+  const logoRef = useRef(null);
+  const buttonRef = useRef(null);
+  useEffect(() => {
+    gsap.fromTo(
+      logoRef.current,
+      {
+        opacity: 0,
+        y: -100,
+      },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 0.5,
+        delay: 0.5,
+      }
+    );
+    gsap.fromTo(
+      buttonRef.current,
+      {
+        opacity: 0,
+        x: 100,
+      },
+      {
+        x: 0,
+        opacity: 1,
+        duration: 1,
+        delay: 0.9,
+      }
+    );
+  }, []);
   return (
     <Wrapper>
       <Left>
-        <Logo src={logo} alt="logo" onClick={() => navigate("/")} />
+        <Logo
+          src={logo}
+          alt="logo"
+          onClick={() => navigate("/")}
+          ref={logoRef}
+        />
         <NavbarPC />
       </Left>
       <GetInked
+        ref={buttonRef}
         style={{ fontFamily: "funky, sans-serif", marginRight: "5vw" }}
         onClick={() => {
           navigate("/book");

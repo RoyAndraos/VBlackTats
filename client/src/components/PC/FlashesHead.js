@@ -3,6 +3,8 @@ import { OverLay, Line, StyledImage, ImageWrap } from "./LandingPage";
 import styled from "styled-components";
 import { IsAdminContext } from "../../contexts/IsAdminContext";
 import ButtonLoader from "./ButtonLoader";
+import { MdOutlineCameraswitch } from "react-icons/md";
+import gsap from "gsap";
 const FlashesHead = () => {
   const [oldImageId, setOldImageId] = useState("");
   const [selectedFileForHead, setSelectedFileForHead] = useState();
@@ -10,7 +12,44 @@ const FlashesHead = () => {
   const [loading, setLoading] = useState(false);
   const fileInputRef = useRef(null);
   const { isAdmin } = useContext(IsAdminContext);
-
+  const overLayRef = useRef(null);
+  const imageRightRef = useRef(null);
+  const imageLeftRef = useRef(null);
+  useEffect(() => {
+    gsap.fromTo(
+      overLayRef.current,
+      {
+        opacity: 0,
+      },
+      {
+        opacity: 1,
+        duration: 1,
+        delay: 1,
+      }
+    );
+    gsap.fromTo(
+      imageLeftRef.current,
+      {
+        width: "52vw",
+      },
+      {
+        width: "0",
+        duration: 1,
+        delay: 1,
+      }
+    );
+    gsap.fromTo(
+      imageRightRef.current,
+      {
+        width: "16vw",
+      },
+      {
+        width: "0",
+        duration: 1,
+        delay: 1,
+      }
+    );
+  }, []);
   useEffect(() => {
     fetch("https://vblacktats.onrender.com/getFlashesPageImage")
       .then((res) => res.json())
@@ -55,15 +94,31 @@ const FlashesHead = () => {
     }
   };
   return (
-    <>
+    <Wrapper>
       <ImageWrap>
-        <OverLay />
+        <LeftOverLayer ref={imageLeftRef} />
+        <RightOverLayer ref={imageRightRef} />
+        <OverLay ref={overLayRef} />
         <Line />
         <StyledImage src={headImage.url} alt="artist portrait" />
       </ImageWrap>
       {isAdmin && (
-        <>
-          <AddButton onClick={handleAddClick}>+</AddButton>
+        <div
+          style={{
+            position: "relative",
+            right: "-15vw",
+            overflow: "hidden",
+            display: "flex",
+            justifyContent: "center",
+            flexDirection: "column",
+            alignContent: "center",
+            alignItems: "center",
+            top: "5vh",
+          }}
+        >
+          <AddButton onClick={handleAddClick}>
+            <MdOutlineCameraswitch />
+          </AddButton>
           <FileInput
             type="file"
             ref={fileInputRef}
@@ -80,39 +135,50 @@ const FlashesHead = () => {
               "Submit"
             )}
           </SubmitButton>
-        </>
+        </div>
       )}
-    </>
+    </Wrapper>
   );
 };
-
+const LeftOverLayer = styled.div`
+  background-color: #bbabe8;
+  width: 51.5vw;
+  height: 51vh;
+  position: absolute;
+  z-index: 1010;
+  right: 33vw;
+`;
+const RightOverLayer = styled.div`
+  background-color: #bbabe8;
+  position: absolute;
+  width: 15vw;
+  z-index: 1010;
+  height: 51vh;
+  left: 69vw;
+`;
+const Wrapper = styled.div`
+  width: 100%;
+  padding-bottom: 5vh;
+  overflow: hidden;
+`;
 const SubmitButton = styled.button`
   background-color: #241441;
   border: none;
   color: whitesmoke;
+  width: 100px;
   font-size: 1rem;
-  position: absolute;
-  bottom: -150px;
   padding: 10px 20px;
   margin: 20px;
   border-radius: 5px;
-  min-width: 120px; /* Set a minimum width for the button */
-  min-height: 40px; /* Set a minimum height for the button */
-  display: flex;
-  align-items: center;
-  justify-content: center;
 `;
 const AddButton = styled.button`
   background-color: #241441;
   border: none;
   color: whitesmoke;
-  position: absolute;
-  bottom: -80px;
-  font-size: 2rem;
+  font-size: 1.5rem;
   border-radius: 50%;
   width: 50px;
   height: 50px;
-  margin: 20px;
 `;
 
 const FileInput = styled.input`

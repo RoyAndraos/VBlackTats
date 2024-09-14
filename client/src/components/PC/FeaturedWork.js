@@ -4,6 +4,7 @@ import { IsAdminContext } from "../../contexts/IsAdminContext";
 import ConfirmationModal from "../ConfirmationModal";
 import Cookies from "js-cookie";
 import Loader from "./Loader";
+import gsap from "gsap";
 
 const FeaturedWork = () => {
   const [images, setImages] = useState([]);
@@ -13,6 +14,23 @@ const FeaturedWork = () => {
   const [loading, setLoading] = useState(false);
   const { isAdmin, setIsAdmin } = useContext(IsAdminContext);
   const fileInputRef = useRef(null);
+  const wrapperRef = useRef(null);
+
+  useEffect(() => {
+    gsap.fromTo(
+      wrapperRef.current,
+      {
+        opacity: 0,
+        y: 100,
+      },
+      {
+        opacity: 1,
+        duration: 1,
+        y: 0,
+        delay: 2.6,
+      }
+    );
+  }, []);
 
   useEffect(() => {
     const token = Cookies.get("token");
@@ -109,14 +127,14 @@ const FeaturedWork = () => {
         <Loader />
       </Wrapper>
     );
-  } else if (images.length === 0) {
+  } else if (!images) {
     return (
-      <Wrapper>
+      <Wrapper ref={wrapperRef}>
         <Title>FEATURED WORK</Title>
         No images found
         {isAdmin && (
           <>
-            <AddButton onClick={handleAddClick}>+</AddButton>
+            <AddButton onClick={handleAddClick}>Add Featured Image</AddButton>
             <FileInput
               type="file"
               ref={fileInputRef}
@@ -138,11 +156,11 @@ const FeaturedWork = () => {
     );
   }
   return (
-    <Wrapper>
+    <Wrapper ref={wrapperRef}>
       <Title>FEATURED WORK</Title>
       {isAdmin && (
         <>
-          <AddButton onClick={handleAddClick}>+</AddButton>
+          <AddButton onClick={handleAddClick}>Add Featured Image</AddButton>
           <FileInput
             type="file"
             ref={fileInputRef}
@@ -213,9 +231,7 @@ const Wrapper = styled.div`
   top: 10vh;
   min-height: 20vh;
   background-color: #bbabe8;
-  @media (max-width: 1000px) {
-    width: 100vw;
-  }
+  margin-bottom: 10vh;
 `;
 const ImagesWrapper = styled.div`
   display: flex;
@@ -266,10 +282,10 @@ const AddButton = styled.button`
   background-color: #241441;
   border: none;
   color: whitesmoke;
-  font-size: 2rem;
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
+  font-size: 1rem;
+  border-radius: 3px;
+  padding: 10px 20px;
+  font-family: "lora", sans-serif;
   margin: 20px;
 `;
 

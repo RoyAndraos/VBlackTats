@@ -1,13 +1,18 @@
-import React, { useContext, useEffect, useState, useRef } from "react";
+import React, {
+  useContext,
+  useEffect,
+  useState,
+  useRef,
+  useLayoutEffect,
+} from "react";
 import { IsAdminContext } from "../../contexts/IsAdminContext";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import ConfirmationModal from "../ConfirmationModal";
 import Cookies from "js-cookie";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { GetInked } from "./HeaderPC";
-import Loader from "./Loader";
 import FlashesHead from "./FlashesHead";
+import { TimelineLite } from "gsap";
 const FlashesPC = () => {
   const [images, setImages] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -18,12 +23,29 @@ const FlashesPC = () => {
     price: "",
     size: "",
   });
-  const [openImage, setOpenImage] = useState();
   const [loading, setLoading] = useState(false);
   const { isAdmin, setIsAdmin } = useContext(IsAdminContext);
-
   const navigate = useNavigate();
   const fileInputRef = useRef(null);
+  const contentWrapperRef = useRef(null);
+  const titleRefTwo = useRef(null);
+  useLayoutEffect(() => {
+    if (!loading && images.length > 0) {
+      const tl = new TimelineLite();
+      tl.fromTo(
+        titleRefTwo.current,
+        { opacity: 0, y: 40 },
+        { opacity: 1, duration: 1, y: 0 },
+        "+=2"
+      );
+      tl.fromTo(
+        contentWrapperRef.current,
+        { opacity: 0, y: 100 },
+        { opacity: 1, duration: 1, y: 0 },
+        "-=1"
+      );
+    }
+  }, [loading, images]);
   useEffect(() => {
     const token = Cookies.get("token");
     if (token) {
@@ -112,36 +134,17 @@ const FlashesPC = () => {
         setIsModalVisible(false);
       });
   };
-  const handlePrevious = () => {
-    const currentIndex = images.findIndex((img) => img.url === openImage);
-    if (currentIndex === 0) {
-      setOpenImage(images[images.length - 1].url);
-    } else {
-      setOpenImage(images[currentIndex - 1].url);
-    }
-  };
-  const handleNext = () => {
-    const currentIndex = images.findIndex((img) => img.url === openImage);
-    if (currentIndex === images.length - 1) {
-      setOpenImage(images[0].url);
-    } else {
-      setOpenImage(images[currentIndex + 1].url);
-    }
-  };
+
   const handleCancelDelete = () => {
     setIsModalVisible(false);
   };
+
   if (loading) {
-    return (
-      <Wrapper>
-        <Title style={{ position: "absolute", top: "0" }}>FLASHES</Title>
-        <Loader />
-      </Wrapper>
-    );
+    return <Wrapper></Wrapper>;
   } else if (images.length === 0) {
     return (
       <Wrapper>
-        <Title>FLASHES</Title>
+        <Title style={{ alignSelf: "center" }}>FLASHES</Title>
         No images found
         {isAdmin && (
           <>
@@ -206,12 +209,12 @@ const FlashesPC = () => {
   }
   return (
     <Wrapper>
-      <Title>FLASHES</Title>
+      <Title style={{ alignSelf: "center", marginLeft: "0" }}>FLASHES</Title>
       <FlashesHead />
-
+      <Title ref={titleRefTwo}>Featured Work</Title>
       {isAdmin && (
         <>
-          <AddButton onClick={handleAddClick}>+</AddButton>
+          <AddButton onClick={handleAddClick}>Add A Flash</AddButton>
           <FileInput
             type="file"
             ref={fileInputRef}
@@ -267,7 +270,7 @@ const FlashesPC = () => {
           )}
         </>
       )}
-      <ImagesWrapper>
+      <ImagesWrapper ref={contentWrapperRef}>
         {images.map((img) => {
           return (
             <Flash key={img.asset_id}>
@@ -280,18 +283,8 @@ const FlashesPC = () => {
                   X
                 </Delete>
               )}
-              <FlashImage
-                src={img.url}
-                alt={"flash tattoo"}
-                onClick={() => {
-                  setOpenImage(img.url);
-                }}
-              />
-              <OverLay
-                onClick={() => {
-                  setOpenImage(img.url);
-                }}
-              ></OverLay>
+              <FlashImage src={img.url} alt={"flash tattoo"} />
+              <OverLay />
               <BottomWrapp>
                 <Info>price: {img.price}</Info> <Info>size: {img.size}</Info>
               </BottomWrapp>
@@ -306,14 +299,7 @@ const FlashesPC = () => {
           );
         })}
       </ImagesWrapper>
-      {openImage && (
-        <AllScreen>
-          <Left onClick={() => handlePrevious()} />
-          <BigImage src={openImage} alt={"big tattoo"} />
-          <CloseButton onClick={() => setOpenImage(null)}>X</CloseButton>
-          <Right onClick={() => handleNext()} />
-        </AllScreen>
-      )}
+
       <ConfirmationModal
         isVisible={isModalVisible}
         onConfirm={handleConfirmDelete}
@@ -357,76 +343,10 @@ const Info = styled.p`
   cursor: default;
 `;
 
-const Left = styled(FaChevronLeft)`
-  position: absolute;
-  top: 50%;
-  left: 10vw;
-  font-size: 4rem;
-  color: whitesmoke;
-  cursor: pointer;
-  z-index: 1010;
-  transition: opacity 0.3s;
-  opacity: 0.7;
-  &:hover {
-    opacity: 1;
-  }
-`;
-
-const Right = styled(FaChevronRight)`
-  position: absolute;
-  top: 50%;
-  right: 10vw;
-  font-size: 4rem;
-  color: whitesmoke;
-  cursor: pointer;
-  opacity: 0.7;
-  z-index: 1010;
-  transition: opacity 0.3s;
-  &:hover {
-    opacity: 1;
-  }
-`;
-
-const AllScreen = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.8);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1010;
-`;
-const BigImage = styled.img`
-  max-width: 80vw;
-  max-height: 80vh;
-  object-fit: contain;
-`;
-const CloseButton = styled.button`
-  position: absolute;
-  top: 100px;
-  right: 100px;
-  font-size: 4rem;
-  color: whitesmoke;
-  border: none;
-  opacity: 0.5;
-  background-color: transparent;
-  width: 30px;
-  font-family: "roboto", sans-serif;
-  height: 30px;
-  transition: opacity 0.3s;
-  cursor: pointer;
-  &:hover {
-    opacity: 1;
-  }
-`;
-
 const ImagesWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
-  gap: 20px; /* Adjust the spacing between images */
+  gap: 3vw;
   justify-content: center;
   align-items: center;
   margin: 0 100px;
@@ -441,7 +361,9 @@ const Title = styled.h1`
   color: #241441;
   letter-spacing: 0.5rem;
   font-size: 3rem;
+  align-self: flex-start;
   padding: 0;
+  margin-left: 15vw;
 `;
 const Wrapper = styled.div`
   display: flex;
@@ -453,6 +375,7 @@ const Wrapper = styled.div`
   top: 10vh;
   background-color: #bbabe8;
   padding-bottom: 10vh;
+  margin-bottom: 10vh;
 `;
 const Delete = styled.button`
   background-color: #c90000;
@@ -473,10 +396,10 @@ const AddButton = styled.button`
   background-color: #241441;
   border: none;
   color: whitesmoke;
-  font-size: 2rem;
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
+  font-size: 1rem;
+  border-radius: 3px;
+  font-family: "lora", sans-serif;
+  padding: 10px 20px;
   margin: 20px;
 `;
 
@@ -527,15 +450,5 @@ const Flash = styled.div`
   margin-bottom: 20px;
   width: 20vw;
   position: relative;
-  padding-right: 2vw;
-  border-right: 1px solid #241441;
-  padding-left: 1vw;
-  &:first-child {
-    padding-left: 0;
-  }
-  &:last-child {
-    border-right: none;
-    padding-right: 0;
-  }
 `;
 export default FlashesPC;

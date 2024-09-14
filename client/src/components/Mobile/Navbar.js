@@ -1,13 +1,31 @@
-import { useContext, useState } from "react";
+import { useContext, useRef, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { LanguageContext } from "../../contexts/LanguageContext";
 import { GetInked } from "../PC/HeaderPC";
 import { FaArrowRight } from "react-icons/fa6";
+import gsap from "gsap";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { language } = useContext(LanguageContext);
   const navigate = useNavigate();
+  const burgerRef = useRef(null);
+  useEffect(() => {
+    console.log(burgerRef);
+    gsap.fromTo(
+      burgerRef.current,
+      {
+        opacity: 0,
+        x: -100,
+      },
+      {
+        x: 0,
+        opacity: 1,
+        duration: 1,
+        delay: 1,
+      }
+    );
+  }, []);
   return (
     <Container>
       <Menu $isOpen={isOpen}>
@@ -48,7 +66,11 @@ const Navbar = () => {
           <FaArrowRight />
         </GetInked>
       </Menu>
-      <Wrapper onClick={() => setIsOpen(!isOpen)} $isOpen={isOpen}>
+      <Wrapper
+        onClick={() => setIsOpen(!isOpen)}
+        $isOpen={isOpen}
+        ref={burgerRef}
+      >
         <BarTop $isOpen={isOpen} />
         <BarMiddle $isOpen={isOpen} />
         <BarBot $isOpen={isOpen} />

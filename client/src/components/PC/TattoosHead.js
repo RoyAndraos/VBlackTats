@@ -4,6 +4,8 @@ import styled from "styled-components";
 import { IsAdminContext } from "../../contexts/IsAdminContext";
 import ButtonLoader from "./ButtonLoader";
 import { MdOutlineCameraswitch } from "react-icons/md";
+import gsap from "gsap";
+
 const TattoosHead = () => {
   const [oldImageId, setOldImageId] = useState("");
   const [selectedFileForHead, setSelectedFileForHead] = useState();
@@ -11,7 +13,44 @@ const TattoosHead = () => {
   const [loading, setLoading] = useState(false);
   const fileInputRef = useRef(null);
   const { isAdmin } = useContext(IsAdminContext);
-
+  const overLayRef = useRef(null);
+  const imageRightRef = useRef(null);
+  const imageLeftRef = useRef(null);
+  useEffect(() => {
+    gsap.fromTo(
+      overLayRef.current,
+      {
+        opacity: 0,
+      },
+      {
+        opacity: 1,
+        duration: 1,
+        delay: 1,
+      }
+    );
+    gsap.fromTo(
+      imageLeftRef.current,
+      {
+        width: "52vw",
+      },
+      {
+        width: "0",
+        duration: 1,
+        delay: 1,
+      }
+    );
+    gsap.fromTo(
+      imageRightRef.current,
+      {
+        width: "16vw",
+      },
+      {
+        width: "0",
+        duration: 1,
+        delay: 1,
+      }
+    );
+  }, []);
   useEffect(() => {
     fetch("https://vblacktats.onrender.com/getTattoosPageImage")
       .then((res) => res.json())
@@ -58,12 +97,14 @@ const TattoosHead = () => {
   return (
     <Wrapper>
       <ImageWrap>
-        <OverLay />
+        <LeftOverLayer ref={imageLeftRef} />
+        <RightOverLayer ref={imageRightRef} />
+        <OverLay ref={overLayRef} />
         <Line />
         <StyledImage src={headImage.url} alt="artist portrait" />
       </ImageWrap>
       {isAdmin && (
-        <div style={{ position: "relative" }}>
+        <div style={{ position: "relative", left: "20vw" }}>
           <AddButton onClick={handleAddClick}>
             <MdOutlineCameraswitch />
           </AddButton>
@@ -88,11 +129,26 @@ const TattoosHead = () => {
     </Wrapper>
   );
 };
+const LeftOverLayer = styled.div`
+  background-color: #bbabe8;
+  width: 51.5vw;
+  height: 51vh;
+  position: absolute;
+  z-index: 1010;
+  right: 33vw;
+`;
+const RightOverLayer = styled.div`
+  background-color: #bbabe8;
+  position: absolute;
+  width: 15vw;
+  z-index: 1010;
+  height: 51vh;
+  left: 69vw;
+`;
 const Wrapper = styled.div`
-  height: 70vh;
   width: 100%;
   position: relative;
-  padding: 50px 0 30px 0;
+  padding-bottom: 5vh;
 `;
 const SubmitButton = styled.button`
   background-color: #241441;

@@ -9,6 +9,7 @@ import { bounce } from "../PC/HeaderPC";
 import { MdOutlineCameraswitch } from "react-icons/md";
 import BookingForm from "../BookingForm";
 import FeaturedWork from "../PC/FeaturedWork";
+import gsap from "gsap";
 const HomePageMobile = () => {
   const navigate = useNavigate();
   const [selectedFile, setSelectedFile] = useState();
@@ -17,9 +18,35 @@ const HomePageMobile = () => {
   const fileInputRef = useRef(null);
   const [loading, setLoading] = useState(false);
   const { setIsAdmin, isAdmin } = useContext(IsAdminContext);
+  const imgWrapRef = useRef(null);
+  const secondImgWrapRef = useRef(null);
   const handleAddClick = () => {
     fileInputRef.current.click(); // Trigger file input click
   };
+  useEffect(() => {
+    gsap.fromTo(
+      imgWrapRef.current,
+      {
+        height: "19vh",
+      },
+      {
+        height: "0",
+        duration: 1,
+        delay: 1.5,
+      }
+    );
+    gsap.fromTo(
+      secondImgWrapRef.current,
+      {
+        height: "51vh",
+      },
+      {
+        height: "0",
+        duration: 1,
+        delay: 1.5,
+      }
+    );
+  }, []);
   useEffect(() => {
     const token = Cookies.get("token");
     if (token) {
@@ -72,6 +99,13 @@ const HomePageMobile = () => {
   return (
     <Wrapper>
       <ImageWrap>
+        <SlidingOverlay ref={imgWrapRef} />
+        <SlidingOverlayTwo ref={secondImgWrapRef} />
+        <OverLay />
+
+        <Line />
+        <LineTwo />
+
         {isAdmin && (
           <>
             <AddButton onClick={handleAddClick}>
@@ -98,10 +132,8 @@ const HomePageMobile = () => {
           </>
         )}
         <Greetings>I'M VERONICA.</Greetings>
-        <OverLay />
-        <Line />
+
         <StyledImage src={image.url} alt="artist portrait" />
-        <LineTwo />
         <GetInked
           onClick={() => {
             navigate("/book");
@@ -118,6 +150,23 @@ const HomePageMobile = () => {
     </Wrapper>
   );
 };
+
+const SlidingOverlay = styled.div`
+  background-color: #241441;
+  width: 91%;
+  position: absolute;
+  z-index: 10000;
+  top: 51vh;
+`;
+
+const SlidingOverlayTwo = styled.div`
+  background-color: #241441;
+  width: 91%;
+  position: absolute;
+  z-index: 10000;
+  bottom: 19vh;
+`;
+
 const GetInked = styled.button`
   font-size: 1rem;
   color: whitesmoke;

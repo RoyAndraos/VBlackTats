@@ -7,13 +7,12 @@ import { StyledInput } from "./PC/BookingFormPC";
 import { GetInked } from "./PC/HeaderPC";
 const Login = () => {
   const [formData, setFormData] = useState("");
-  const { setIsAdmin } = useContext(IsAdminContext);
+  const { setIsAdmin, isAdmin } = useContext(IsAdminContext);
   const navigate = useNavigate();
   useEffect(() => {
     const token = Cookies.get("token");
     if (token) {
       setIsAdmin(true);
-      navigate("/");
     }
   }, [setIsAdmin, navigate]);
   const handleSubmit = (e) => {
@@ -40,33 +39,47 @@ const Login = () => {
   };
   return (
     <Wrapper>
-      <Label>
-        Username
-        <StyledInput
-          type="text"
-          name="username"
-          onChange={(e) => {
-            setFormData({ ...formData, [e.target.name]: e.target.value });
+      {!isAdmin ? (
+        <>
+          <Label>
+            Username
+            <StyledInput
+              type="text"
+              name="username"
+              onChange={(e) => {
+                setFormData({ ...formData, [e.target.name]: e.target.value });
+              }}
+            />
+          </Label>
+          <Label>
+            Password
+            <StyledInput
+              type="password"
+              name="password"
+              onChange={(e) => {
+                setFormData({ ...formData, [e.target.name]: e.target.value });
+              }}
+            />
+          </Label>
+          <GetInked
+            onClick={(e) => {
+              handleSubmit(e);
+            }}
+          >
+            Log in
+          </GetInked>
+        </>
+      ) : (
+        <GetInked
+          onClick={() => {
+            Cookies.remove("token");
+            setIsAdmin(false);
+            navigate("/");
           }}
-        />
-      </Label>
-      <Label>
-        Password
-        <StyledInput
-          type="password"
-          name="password"
-          onChange={(e) => {
-            setFormData({ ...formData, [e.target.name]: e.target.value });
-          }}
-        />
-      </Label>
-      <GetInked
-        onClick={(e) => {
-          handleSubmit(e);
-        }}
-      >
-        Log in
-      </GetInked>
+        >
+          Log out
+        </GetInked>
+      )}
     </Wrapper>
   );
 };

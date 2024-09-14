@@ -18,10 +18,10 @@ import TattoosPC from "./components/PC/TattoosPC";
 import FlashesPC from "./components/PC/FlashesPC";
 import BookingFormPC from "./components/PC/BookingFormPC";
 import BookingFormFlashPC from "./components/PC/BookingFormFlashPC";
-
+import TransitionComponent from "./components/TransitionComponent";
 const App = () => {
   const { isMobile } = useContext(IsMobileContext);
-  const location = useLocation().pathname;
+  const location = useLocation();
   return (
     <Wrapper>
       {isMobile ? (
@@ -36,24 +36,73 @@ const App = () => {
         </Routes>
       ) : (
         <Routes>
-          <Route path="/admin" element={<Login />} />
-          <Route path="/afterCare" element={<AfterCare />} />
-          <Route path="/book" element={<BookingFormPC book={true} />} />
-          <Route path="/book/:id" element={<BookingFormFlashPC />} />
-          <Route path="/tattoos" element={<TattoosPC />} />
-          <Route path="/flashes" element={<FlashesPC />} />
-          <Route path="/" element={<HomePagePC />} />
+          <Route
+            path="/admin"
+            element={
+              <TransitionComponent>
+                <Login />
+              </TransitionComponent>
+            }
+          />
+          <Route
+            path="/afterCare"
+            element={
+              <TransitionComponent>
+                <AfterCare />
+              </TransitionComponent>
+            }
+          />
+          <Route
+            path="/book"
+            element={
+              <TransitionComponent>
+                <BookingFormPC book={true} />
+              </TransitionComponent>
+            }
+          />
+          <Route
+            path="/book/:id"
+            element={
+              <TransitionComponent>
+                <BookingFormFlashPC />
+              </TransitionComponent>
+            }
+          />
+          <Route
+            path="/tattoos"
+            element={
+              <TransitionComponent>
+                <TattoosPC />
+              </TransitionComponent>
+            }
+          />
+          <Route
+            path="/flashes"
+            element={
+              <TransitionComponent>
+                <FlashesPC />
+              </TransitionComponent>
+            }
+          />
+          <Route
+            path="/"
+            element={
+              <TransitionComponent>
+                <HomePagePC />
+              </TransitionComponent>
+            }
+          />
         </Routes>
       )}
       {isMobile ? <HeaderMobile /> : <HeaderPC />}
 
       {isMobile ? (
-        location === "/book" || location === "/admin" ? (
+        location.pathname === "/book" || location.pathname === "/admin" ? (
           <></>
         ) : (
           <FooterMobile></FooterMobile>
         )
-      ) : location === "/book" || location === "/admin" ? (
+      ) : location.pathname === "/book" || location.pathname === "/admin" ? (
         <></>
       ) : (
         <FooterPC />
@@ -61,6 +110,9 @@ const App = () => {
     </Wrapper>
   );
 };
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  background-color: #bbabe8;
+  min-height: 100vh;
+`;
 
 export default App;

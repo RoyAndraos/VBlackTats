@@ -1,12 +1,16 @@
-import React, { useState, useEffect, useRef, useContext } from "react";
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  useContext,
+  useLayoutEffect,
+} from "react";
 import styled from "styled-components";
 import { IsAdminContext } from "../../contexts/IsAdminContext";
 import ConfirmationModal from "../ConfirmationModal";
 import Cookies from "js-cookie";
-import { FaChevronLeft } from "react-icons/fa";
-import { FaChevronRight } from "react-icons/fa";
-import Loader from "./Loader";
 import TattoosHead from "./TattoosHead";
+import { TimelineLite } from "gsap";
 const TattoosPC = () => {
   const [images, setImages] = useState([]);
   const [selectedFile, setSelectedFile] = useState();
@@ -14,9 +18,27 @@ const TattoosPC = () => {
   const [deleteId, setDeleteId] = useState(null);
   const [loading, setLoading] = useState(false);
   const { isAdmin, setIsAdmin } = useContext(IsAdminContext);
-  const [openImage, setOpenImage] = useState();
   const fileInputRef = useRef(null);
+  const contentWrapperRef = useRef(null);
+  const titleRefTwo = useRef(null);
 
+  useLayoutEffect(() => {
+    if (!loading && images.length > 0) {
+      const tl = new TimelineLite();
+      tl.fromTo(
+        titleRefTwo.current,
+        { opacity: 0, y: 40 },
+        { opacity: 1, duration: 1, y: 0 },
+        "+=2"
+      );
+      tl.fromTo(
+        contentWrapperRef.current,
+        { opacity: 0, y: 100 },
+        { opacity: 1, duration: 1, y: 0 },
+        "-=1"
+      );
+    }
+  }, [loading, images]);
   useEffect(() => {
     const token = Cookies.get("token");
     if (token) {
@@ -104,31 +126,8 @@ const TattoosPC = () => {
     setIsModalVisible(false);
   };
 
-  const handleClickLeft = () => {
-    const currentIndex = images.findIndex((img) => img.url === openImage);
-    if (currentIndex === 0) {
-      setOpenImage(images[images.length - 1].url);
-    } else {
-      setOpenImage(images[currentIndex - 1].url);
-    }
-  };
-
-  const handleClickRight = () => {
-    const currentIndex = images.findIndex((img) => img.url === openImage);
-    if (currentIndex === images.length - 1) {
-      setOpenImage(images[0].url);
-    } else {
-      setOpenImage(images[currentIndex + 1].url);
-    }
-  };
-
   if (loading) {
-    return (
-      <Wrapper>
-        <Title style={{ position: "absolute", top: "0" }}>TATTOOS</Title>
-        <Loader />
-      </Wrapper>
-    );
+    return <Wrapper></Wrapper>;
   } else if (images.length === 0) {
     return (
       <Wrapper>
@@ -165,11 +164,12 @@ const TattoosPC = () => {
   }
   return (
     <Wrapper>
-      <Title>TATTOOS</Title>
+      <Title style={{ alignSelf: "center", marginLeft: "0" }}>TATTOOS</Title>
       <TattoosHead />
+      <Title ref={titleRefTwo}>Featured Work</Title>
       {isAdmin && (
         <>
-          <AddButton onClick={handleAddClick}>+</AddButton>
+          <AddButton onClick={handleAddClick}>Add A Tattoo</AddButton>
           <FileInput
             type="file"
             ref={fileInputRef}
@@ -187,7 +187,7 @@ const TattoosPC = () => {
           )}
         </>
       )}
-      <ImagesWrapper>
+      <ImagesWrapper ref={contentWrapperRef}>
         {images.map((img) => {
           return (
             <Flash key={img.asset_id}>
@@ -200,32 +200,13 @@ const TattoosPC = () => {
                   X
                 </Delete>
               )}
-              <OverLay
-                onClick={() => {
-                  setOpenImage(img.url);
-                }}
-              ></OverLay>
+              <OverLay></OverLay>
               <FlashImage src={img.url} alt={"flash tattoo"} />
             </Flash>
           );
         })}
       </ImagesWrapper>
-      {openImage && (
-        <AllScreen>
-          <Left
-            onClick={() => {
-              handleClickLeft();
-            }}
-          ></Left>
-          <CloseButton onClick={() => setOpenImage(null)}>X</CloseButton>
-          <BigImage src={openImage} />
-          <Right
-            onClick={() => {
-              handleClickRight();
-            }}
-          ></Right>
-        </AllScreen>
-      )}
+
       <ConfirmationModal
         isVisible={isModalVisible}
         onConfirm={handleConfirmDelete}
@@ -234,72 +215,6 @@ const TattoosPC = () => {
     </Wrapper>
   );
 };
-
-const Left = styled(FaChevronLeft)`
-  position: absolute;
-  top: 50%;
-  left: 10vw;
-  font-size: 4rem;
-  color: whitesmoke;
-  cursor: pointer;
-  z-index: 1010;
-  transition: opacity 0.3s;
-  opacity: 0.7;
-  &:hover {
-    opacity: 1;
-  }
-`;
-
-const Right = styled(FaChevronRight)`
-  position: absolute;
-  top: 50%;
-  right: 10vw;
-  font-size: 4rem;
-  color: whitesmoke;
-  cursor: pointer;
-  opacity: 0.7;
-  z-index: 1010;
-  transition: opacity 0.3s;
-  &:hover {
-    opacity: 1;
-  }
-`;
-
-const AllScreen = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.8);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1010;
-`;
-const BigImage = styled.img`
-  max-width: 80vw;
-  max-height: 80vh;
-  object-fit: contain;
-`;
-const CloseButton = styled.button`
-  position: absolute;
-  top: 100px;
-  right: 100px;
-  font-size: 4rem;
-  color: whitesmoke;
-  border: none;
-  opacity: 0.5;
-  background-color: transparent;
-  font-family: "roboto", sans-serif;
-  width: 30px;
-  height: 30px;
-  transition: opacity 0.3s;
-  cursor: pointer;
-  &:hover {
-    opacity: 1;
-  }
-`;
 
 const ImagesWrapper = styled.div`
   display: flex;
@@ -318,7 +233,10 @@ const Title = styled.h1`
   text-shadow: 3px 3px 0px #c4b6eb, 6px 6px 0px #241441;
   color: #241441;
   letter-spacing: 0.5rem;
-  font-size: 3.5rem;
+  font-size: 3rem;
+  align-self: flex-start;
+  padding: 0;
+  margin-left: 15vw;
 `;
 const Wrapper = styled.div`
   display: flex;
@@ -329,7 +247,9 @@ const Wrapper = styled.div`
   min-height: 90vh;
   top: 10vh;
   background-color: #bbabe8;
+  overflow: hidden;
   padding-bottom: 10vh;
+  margin-bottom: 10vh;
 `;
 const Delete = styled.button`
   background-color: #c90000;
@@ -350,10 +270,10 @@ const AddButton = styled.button`
   background-color: #241441;
   border: none;
   color: whitesmoke;
-  font-size: 2rem;
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
+  font-size: 1rem;
+  padding: 10px 20px;
+  font-family: "lora", sans-serif;
+  border-radius: 3px;
   margin: 20px;
 `;
 

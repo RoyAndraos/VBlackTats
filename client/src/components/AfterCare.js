@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { useContext } from "react";
 import { IsMobileContext } from "../contexts/IsMobileContext";
+import aftercareone from "../assets/AfterCare.jpg";
+import aftercaretwo from "../assets/aftercaretwo.jpg";
 const AfterCare = () => {
   const { isMobile } = useContext(IsMobileContext);
   return (
@@ -56,14 +58,14 @@ const AfterCare = () => {
         </UnorderedList>
         <ImgWrapp>
           <OverLay />
-          <Image src="https://instagram.fyhu2-1.fna.fbcdn.net/v/t39.30808-6/434331300_18432719158028802_1177750964830244053_n.jpg?stp=dst-jpg_e35_p480x480&efg=eyJ2ZW5jb2RlX3RhZyI6ImltYWdlX3VybGdlbi4xNDQweDE3OTkuc2RyLmYzMDgwOC5kZWZhdWx0X2ltYWdlIn0&_nc_ht=instagram.fyhu2-1.fna.fbcdn.net&_nc_cat=106&_nc_ohc=j12xEtpvW1gQ7kNvgHINNMe&edm=AEhyXUkAAAAA&ccb=7-5&ig_cache_key=MzMzNzQ5ODA0MTc4NTQ2MzU2NQ%3D%3D.3-ccb7-5&oh=00_AYAr3rVHlp68h0_cHX7oVTY2bY35cVepsOTNAaM7urL3pw&oe=66DDA0CC&_nc_sid=8f1549"></Image>
+          <Image src={aftercareone}></Image>
         </ImgWrapp>
       </Top>
       <Bottom>
         {!isMobile && (
           <ImgWrapp>
             <OverLay />
-            <Image src="https://instagram.fyhu2-1.fna.fbcdn.net/v/t39.30808-6/429799695_18428110579028802_4720549918623232767_n.jpg?stp=dst-jpg_e35_p720x720&efg=eyJ2ZW5jb2RlX3RhZyI6ImltYWdlX3VybGdlbi4xNDQweDE4MDAuc2RyLmYzMDgwOC5kZWZhdWx0X2ltYWdlIn0&_nc_ht=instagram.fyhu2-1.fna.fbcdn.net&_nc_cat=106&_nc_ohc=pLvW8Dfe8XMQ7kNvgE_qbWQ&edm=AEhyXUkAAAAA&ccb=7-5&ig_cache_key=MzMxODY0ODA1NTMxNjM3NzY5OA%3D%3D.3-ccb7-5&oh=00_AYBFexgJg4Z8sJgiMYGFl-utdhVSZnHNo-8AfXrYB50EEw&oe=66DDBABF&_nc_sid=8f1549"></Image>
+            <Image src={aftercaretwo}></Image>
           </ImgWrapp>
         )}
         <UnorderedList>
@@ -183,6 +185,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   color: #241441;
   background-color: #bbabe8;
+  margin-bottom: 10vh;
   @media (min-width: 1000px) {
     padding: 0 10vw;
     top: 10vh;

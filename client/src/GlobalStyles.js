@@ -31,6 +31,21 @@ const GlobalStyles = createGlobalStyle`
   button {
     cursor: pointer;
   }
+  /* For WebKit browsers (Chrome, Safari, etc.) */
+::-webkit-scrollbar {
+  width: 0;  /* Removes scrollbar, but scrolling is still enabled */
+  height: 0;
+}
+
+/* For Firefox */
+html {
+  scrollbar-width: none;  /* Hides scrollbar in Firefox, but scrolling is enabled */
+}
+
+/* General styling if you want to ensure scrolling works */
+body, html {
+  overflow: auto;  /* Ensures scrolling behavior is allowed */
+}
 
 `;
 

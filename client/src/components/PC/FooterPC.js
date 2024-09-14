@@ -2,10 +2,27 @@ import styled from "styled-components";
 import { FaInstagram } from "react-icons/fa";
 import LOGO from "../../assets/LOGO.svg";
 import { FaRegCopyright } from "react-icons/fa";
-
+import gsap from "gsap";
+import { useRef, useEffect } from "react";
 const FooterPC = () => {
+  const wrapperRef = useRef(null);
+  useEffect(() => {
+    gsap.fromTo(
+      wrapperRef.current,
+      {
+        opacity: 0,
+        y: 100,
+      },
+      {
+        opacity: 1,
+        duration: 1,
+        y: 0,
+        delay: 2,
+      }
+    );
+  }, []);
   return (
-    <Wrapper>
+    <Wrapper ref={wrapperRef}>
       <TopWrapper>
         <IconLabel>
           <Logo src={LOGO} alt="logo" />
@@ -46,14 +63,15 @@ const StyledLink = styled.a`
   }
 `;
 const Wrapper = styled.div`
-  width: 100%;
+  width: 70vw;
   height: 25vh;
   background-color: #bbabe8;
   display: flex;
   flex-direction: column;
   align-items: center;
   position: relative;
-  top: 10vh;
+  border-top: 1px solid #241445;
+  margin: 0 15vw;
   padding-top: 3vh;
 `;
 const TopWrapper = styled.div`

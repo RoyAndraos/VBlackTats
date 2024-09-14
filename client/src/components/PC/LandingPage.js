@@ -7,6 +7,7 @@ import Cookies from "js-cookie";
 import { IsAdminContext } from "../../contexts/IsAdminContext";
 import { FileInput } from "./TattoosPC";
 import ButtonLoader from "./ButtonLoader";
+import gsap from "gsap";
 const LandingPage = () => {
   const navigate = useNavigate();
   const [selectedFile, setSelectedFile] = useState();
@@ -15,6 +16,70 @@ const LandingPage = () => {
   const fileInputRef = useRef(null);
   const [loading, setLoading] = useState(false);
   const { setIsAdmin, isAdmin } = useContext(IsAdminContext);
+  const overLayRef = useRef(null);
+  const imageRightRef = useRef(null);
+  const imageLeftRef = useRef(null);
+  const greetingsRef = useRef(null);
+  const buttonRef = useRef(null);
+  useEffect(() => {
+    gsap.fromTo(
+      overLayRef.current,
+      {
+        opacity: 0,
+      },
+      {
+        opacity: 1,
+        duration: 1,
+        delay: 1.5,
+      }
+    );
+    gsap.fromTo(
+      imageLeftRef.current,
+      {
+        width: "52vw",
+      },
+      {
+        width: "0",
+        duration: 1,
+        delay: 1.5,
+      }
+    );
+    gsap.fromTo(
+      imageRightRef.current,
+      {
+        width: "16vw",
+      },
+      {
+        width: "0",
+        duration: 1,
+        delay: 1.5,
+      }
+    );
+    gsap.fromTo(
+      greetingsRef.current,
+      {
+        opacity: 0,
+      },
+      {
+        opacity: 1,
+        duration: 1,
+        delay: 1.5,
+      }
+    );
+    gsap.fromTo(
+      buttonRef.current,
+      {
+        opacity: 0,
+        y: 100,
+      },
+      {
+        opacity: 1,
+        duration: 1,
+        delay: 2.5,
+        y: 0,
+      }
+    );
+  }, []);
   const handleAddClick = () => {
     fileInputRef.current.click(); // Trigger file input click
   };
@@ -91,9 +156,11 @@ const LandingPage = () => {
               )}
             </SubmitButton>
           </>
-        )}
-        <Greetings>I'M VERONICA.</Greetings>
-        <OverLay />
+        )}{" "}
+        <LeftOverLayer ref={imageLeftRef} />
+        <RightOverLayer ref={imageRightRef} />
+        <Greetings ref={greetingsRef}>I'M VERONICA.</Greetings>
+        <OverLay ref={overLayRef} />
         <Line />
         <StyledImage src={image.url} alt="artist portrait" />
       </ImageWrap>
@@ -102,6 +169,7 @@ const LandingPage = () => {
         onClick={() => {
           navigate("/book");
         }}
+        ref={buttonRef}
       >
         GET INKED!{" "}
         <span>
@@ -111,7 +179,20 @@ const LandingPage = () => {
     </Container>
   );
 };
-
+const LeftOverLayer = styled.div`
+  background-color: #bbabe8;
+  height: 51vh;
+  position: absolute;
+  z-index: 1010;
+  right: 33vw;
+`;
+const RightOverLayer = styled.div`
+  background-color: #bbabe8;
+  position: absolute;
+  z-index: 1010;
+  height: 51vh;
+  left: 69vw;
+`;
 const SubmitButton = styled.button`
   background-color: #241441;
   border: none;

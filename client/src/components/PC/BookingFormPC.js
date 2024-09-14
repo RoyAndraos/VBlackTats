@@ -1,9 +1,9 @@
 import { useState, useContext, useEffect } from "react";
 import { LanguageContext } from "../../contexts/LanguageContext";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import Cookies from "js-cookie";
 import { IsAdminContext } from "../../contexts/IsAdminContext";
-import bounce from "../PC/HeaderPC";
+
 import { FaArrowRightLong } from "react-icons/fa6";
 import formImg from "../../assets/formImg.jpg";
 const BookingFormPC = ({ book }) => {
@@ -274,17 +274,15 @@ const BookingFormPC = ({ book }) => {
               />
             </FileInputWrapper>
           </StyledLabel>
-          <ButtonWrapper>
-            <GetInked
-              disabled={ageAlert || numbeAlert || budgetAlert}
-              type="submit"
-            >
-              {language === "en" ? "SUBMIT" : "SOUMETTRE"}
-              <span>
-                <FaArrowRightLong style={{ fontSize: "1.5rem" }} />
-              </span>
-            </GetInked>
-          </ButtonWrapper>
+          <GetInked
+            disabled={ageAlert || numbeAlert || budgetAlert}
+            type="submit"
+          >
+            {language === "en" ? "SUBMIT" : "SOUMETTRE"}
+            <span>
+              <FaArrowRightLong style={{ fontSize: "1.5rem" }} />
+            </span>
+          </GetInked>
         </StyledForm>
         <ImgWrap>
           <Overlay />
@@ -294,8 +292,19 @@ const BookingFormPC = ({ book }) => {
     </Container>
   );
 };
+export const bounce = keyframes`
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(10px);
+  }
+`;
 const FormImageWrapper = styled.div`
   display: flex;
+  width: 70vw;
+  justify-content: space-between;
+  align-items: center;
 `;
 const Title = styled.h1`
   font-size: 2rem;
@@ -326,10 +335,10 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
   background-color: #bbabe8;
-  top: 5vh;
   position: relative;
-  max-height: ${(props) => (props.$bookingPage ? "90vh" : "unset")};
-  overflow: hidden;
+  height: ${(props) => (props.$bookingPage ? "90vh" : "unset")};
+  margin-bottom: ${(props) => (props.$bookingPage ? "0" : "15vh")};
+  top: ${(props) => (props.$bookingPage ? "10vh" : "0")};
 `;
 export const FileInputWrapper = styled.div`
   position: relative;
@@ -369,11 +378,11 @@ export const Required = styled.span`
 `;
 export const StyledForm = styled.form`
   display: grid;
-  grid-template-columns: 47% 47%;
+  grid-template-columns: 50% 50%;
   gap: 3%;
   min-height: 70vh;
-  padding: 5vh 0 15vh 0;
-  width: 50%;
+  margin-right: 3vw;
+  width: 100%;
   position: relative;
 `;
 export const StyledLabel = styled.label`
@@ -403,30 +412,27 @@ export const StyledTextArea = styled.textarea`
 export const Alert = styled.p`
   color: red;
 `;
-const ButtonWrapper = styled.div`
-  justify-content: flex-end;
-  align-items: flex-end;
-  position: absolute;
-  bottom: 50px;
-  width: 70vw;
-`;
+
 const GetInked = styled.button`
-  font-size: 1rem;
+  font-size: clamp(0.5rem, 1vw, 1rem);
   color: whitesmoke;
   padding: 0.7vh 2vw;
   border: none;
   border-radius: 3px;
   background-color: #241441;
   font-family: "EthnocentricRegular", sans-serif;
-  position: absolute;
   box-shadow: #c4b6eb 5px 5px 0px -2px, #241441 5px 5px;
   display: flex;
   align-items: center;
+  grid-column: 1 / -1;
+  min-width: 40%;
+  max-width: 50%;
+  align-self: center;
+  justify-self: center;
+  justify-content: center;
   gap: 1vw;
   letter-spacing: 0.1rem;
   z-index: 1000;
-  right: 50%;
-  transform: translateX(50%);
   &:hover {
     span {
       animation: ${bounce} 0.5s ease-in-out infinite; /* Bounce effect */
