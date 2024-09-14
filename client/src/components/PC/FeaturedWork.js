@@ -322,8 +322,10 @@ const FlashImage = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border: 3px solid #241441;
   border-radius: 3px;
+  @media (max-width: 1000px) {
+    border: 3px solid #241441;
+  }
 `;
 const Flash = styled.div`
   display: flex;

@@ -16,7 +16,11 @@ const TransitionComponent = ({ children }) => {
         key={location.pathname}
         timeout={500}
         onEnter={(node) => {
+          // Scroll to top before starting the animation
+          window.scrollTo(0, 0);
           toggleCompleted(false);
+
+          // GSAP animation setup
           gsap.set(node, { autoAlpha: 0, scale: 0.7, xPercent: -100 });
           gsap
             .timeline({
@@ -27,6 +31,7 @@ const TransitionComponent = ({ children }) => {
             .play();
         }}
         onExit={(node) => {
+          // GSAP exit animation
           gsap
             .timeline({ paused: true })
             .to(node, { xPercent: 30, scale: 0.7, duration: 1 })

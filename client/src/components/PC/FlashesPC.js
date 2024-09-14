@@ -399,6 +399,7 @@ const Delete = styled.button`
   text-align: center;
   line-height: 30px; /* Aligns text vertically */
   font-family: "roboto", sans-serif;
+  z-index: 1000;
 `;
 const AddButton = styled.button`
   background-color: #241441;
