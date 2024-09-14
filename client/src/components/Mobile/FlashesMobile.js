@@ -21,6 +21,7 @@ const FlashesMobile = () => {
   const fileInputRef = useRef(null);
   useEffect(() => {
     setLoading(true);
+    // https://vblacktats.onrender.com
     fetch("https://vblacktats.onrender.com/getFlash")
       .then((res) => res.json())
       .then((data) => {
