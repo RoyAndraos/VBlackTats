@@ -333,6 +333,7 @@ const getFlashById = async (req, res) => {
   }
 };
 const getFlashTattoos = async (req, res) => {
+  console.log("getFlashTattoos");
   const client = new MongoClient(MONGO_URI);
   await client.connect();
   try {

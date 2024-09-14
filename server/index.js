@@ -29,20 +29,13 @@ const {
 } = require("./server");
 
 const app = express();
+app.options("*", cors()); // Handle preflight requests for all routes
 
-const allowedOrigins = [
-  "http://localhost:3000",
-  "https://vblacktattoos.netlify.app",
-];
 app.use(
   cors({
-    origin: function (origin, callback) {
-      if (!origin || allowedOrigins.indexOf(origin) !== -1) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
+    origin: "http://localhost:3000", // Replace with the origin of your front-end application
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 app.use(express.json({ limit: "50mb" }));
