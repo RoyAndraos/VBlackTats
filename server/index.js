@@ -33,7 +33,10 @@ app.options("*", cors()); // Handle preflight requests for all routes
 
 app.use(
   cors({
-    origin: "http://localhost:3000", // Replace with the origin of your front-end application
+    origin: [
+      "http://localhost:3000",
+      "https://master--vblacktattoos.netlify.app",
+    ], // Replace with the origin of your front-end application
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
