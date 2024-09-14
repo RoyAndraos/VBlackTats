@@ -10,10 +10,8 @@ const AfterCare = () => {
       {!isMobile && (
         <Title
           style={{
-            fontFamily: "EthnocentricRegular, sans-serif",
             fontSize: "clamp(2rem, 3vw, 3.5rem)",
             margin: "10vh auto 0 auto",
-            textShadow: "3px 3px 0px #c4b6eb, 6px 6px 0px #241441",
             letterSpacing: "0.5rem",
           }}
         >
@@ -65,7 +63,7 @@ const AfterCare = () => {
         {!isMobile && (
           <ImgWrapp>
             <OverLay />
-            <Image src={aftercaretwo}></Image>
+            <Image src={aftercareone}></Image>
           </ImgWrapp>
         )}
         <UnorderedList>
@@ -98,7 +96,7 @@ const AfterCare = () => {
         {isMobile && (
           <ImgWrapp>
             <OverLay />
-            <Image src="https://instagram.fyhu2-1.fna.fbcdn.net/v/t39.30808-6/429799695_18428110579028802_4720549918623232767_n.jpg?stp=dst-jpg_e35_p720x720&efg=eyJ2ZW5jb2RlX3RhZyI6ImltYWdlX3VybGdlbi4xNDQweDE4MDAuc2RyLmYzMDgwOC5kZWZhdWx0X2ltYWdlIn0&_nc_ht=instagram.fyhu2-1.fna.fbcdn.net&_nc_cat=106&_nc_ohc=pLvW8Dfe8XMQ7kNvgE_qbWQ&edm=AEhyXUkAAAAA&ccb=7-5&ig_cache_key=MzMxODY0ODA1NTMxNjM3NzY5OA%3D%3D.3-ccb7-5&oh=00_AYBFexgJg4Z8sJgiMYGFl-utdhVSZnHNo-8AfXrYB50EEw&oe=66DDBABF&_nc_sid=8f1549"></Image>
+            <Image src={aftercaretwo}></Image>
           </ImgWrapp>
         )}
       </Bottom>
@@ -157,7 +155,7 @@ const Bottom = styled.div`
 const Title = styled.h1`
   font-size: 2rem;
   background-color: #bbabe8;
-  font-family: "arial", sans-serif;
+  font-family: "noah-bold", sans-serif;
   letter-spacing: 0.1rem;
   color: #241441;
   margin: 0;
@@ -185,14 +183,17 @@ const Wrapper = styled.div`
   flex-direction: column;
   color: #241441;
   background-color: #bbabe8;
-  margin-bottom: 10vh;
+  padding-top: 60px;
+  margin-bottom: 20vh;
   @media (min-width: 1000px) {
     padding: 0 10vw;
     top: 10vh;
     background-color: #bbabe8;
     gap: 10vh;
     padding-bottom: 10vh;
+    padding-top: 0;
     align-items: center;
+    margin-bottom: 10vh;
   }
 `;
 const UnorderedList = styled.ul`

@@ -8,7 +8,7 @@ const HomePagePC = () => {
     <Wrapper>
       <LandingPage />
       <FeaturedWork />
-      <BookingFormPC />
+      <BookingFormPC book={false} />
     </Wrapper>
   );
 };

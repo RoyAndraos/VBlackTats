@@ -220,7 +220,6 @@ const FlashesMobile = () => {
                 </Delete>
               )}
               <FlashImage src={img.url} alt={"flash tattoo"} />
-              <OverLay></OverLay>
               <BottomWrapp>
                 <div
                   style={{
@@ -322,19 +321,7 @@ const FlashImage = styled.img`
   aspect-ratio: 4/5;
   object-fit: cover;
 `;
-const OverLay = styled.div`
-  background-color: rgba(66, 0, 255, 0.3);
-  width: 85vw;
-  aspect-ratio: 4/5;
-  max-width: 500px;
-  position: absolute;
-  top: 0;
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
-  &:hover {
-    background-color: transparent;
-  }
-`;
+
 const Flash = styled.div`
   display: flex;
   flex-direction: column;

@@ -40,7 +40,6 @@ const sendEmail = async (req, res) => {
     placement,
     size,
     description,
-    availability,
     budget,
   } = req.body;
 
@@ -75,10 +74,8 @@ const sendEmail = async (req, res) => {
       from: sender,
       to: recipients,
       subject: "New Booking Request",
-      text: `Name: ${fname} ${lname}\nEmail: ${email}\nPhone: ${phone}\nAge: ${age}\nPlacement: ${placement}\nSize: ${size} inches\nDescription: ${description}\nAvailability: ${availability.join(
-        ", "
-      )}\nBudget: ${budget} CAD`,
-      category: "Booking Request",
+      text: `Name: ${fname} ${lname}\nEmail: ${email}\nPhone: ${phone}\nAge: ${age}\nPlacement: ${placement}\nSize: ${size} inches\nDescription: ${description}\nBudget: ${budget} CAD`,
+      category: "New Booking Request (Custom)",
       attachments,
     });
 
@@ -90,7 +87,7 @@ const sendEmail = async (req, res) => {
 };
 
 const sendEmailForFlash = async (req, res) => {
-  const { fname, lname, email, phone, age, placement, availability } = req.body;
+  const { fname, lname, email, phone, age, placement } = req.body;
   const tattooRef = req.file; // multer processes single file as `req.file`
 
   try {
@@ -108,10 +105,8 @@ const sendEmailForFlash = async (req, res) => {
     await mailtrapClient.send({
       from: sender,
       to: recipients,
-      subject: "New Booking Request",
-      text: `Name: ${fname} ${lname}\nEmail: ${email}\nPhone: ${phone}\nAge: ${age}\nPlacement: ${placement}\nAvailability: ${availability.join(
-        ", "
-      )}\n`,
+      subject: "New Booking Request (Flash)",
+      text: `Name: ${fname} ${lname}\nEmail: ${email}\nPhone: ${phone}\nAge: ${age}\nPlacement: ${placement}\n`,
       category: "Booking Request",
       attachments,
     });
@@ -333,7 +328,6 @@ const getFlashById = async (req, res) => {
   }
 };
 const getFlashTattoos = async (req, res) => {
-  console.log("getFlashTattoos");
   const client = new MongoClient(MONGO_URI);
   await client.connect();
   try {

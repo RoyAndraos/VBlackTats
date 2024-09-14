@@ -96,8 +96,9 @@ const Menu = styled.div`
   position: fixed;
   top: ${({ $isOpen }) => ($isOpen ? "0" : "-100%")};
   left: 0;
+  font-size: 1.5rem;
   transition: 0.5s ease-in-out;
-  font-family: "EthnocentricRegular", sans-serif !important;
+  font-family: "noah-bold", sans-serif !important;
   div {
     padding-bottom: 4vh;
     padding-top: 4vh;

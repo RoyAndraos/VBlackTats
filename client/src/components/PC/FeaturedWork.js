@@ -98,8 +98,6 @@ const FeaturedWork = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
-
         if (data.status === 200) {
           setImages(
             images.filter((img) => {
@@ -212,7 +210,7 @@ const Title = styled.h1`
   position: absolute;
   top: -10vh;
   left: 0;
-  font-family: "EthnocentricRegular", sans-serif;
+  font-family: "noah-bold", sans-serif;
   background-color: #bbabe8;
   @media (max-width: 1000px) {
     position: relative;
@@ -232,6 +230,9 @@ const Wrapper = styled.div`
   min-height: 20vh;
   background-color: #bbabe8;
   margin-bottom: 10vh;
+  @media (max-width: 1000px) {
+    width: 100vw;
+  }
 `;
 const ImagesWrapper = styled.div`
   display: flex;
@@ -260,6 +261,14 @@ const OverLay = styled.div`
   width: 100%;
   height: 100%;
   position: absolute;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  &:hover {
+    background-color: transparent;
+  }
+  @media (max-width: 1000px) {
+    display: none;
+  }
 `;
 
 const Delete = styled.button`
@@ -313,6 +322,8 @@ const FlashImage = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
+  border: 3px solid #241441;
+  border-radius: 3px;
 `;
 const Flash = styled.div`
   display: flex;

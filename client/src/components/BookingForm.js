@@ -278,7 +278,7 @@ const BookingForm = () => {
           disabled={ageAlert || numbeAlert || budgetAlert}
           type="submit"
         >
-          {language === "en" ? "Submit" : "Soumettre"}
+          {language === "en" ? "Get Inked" : "Soumettre"}
         </GetInked>
       </ButtonWrapper>
     </Wrapper>
@@ -318,6 +318,7 @@ export const Wrapper = styled.form`
   background-color: #bbabe8;
   top: 8vh;
   width: 100%;
+  margin-bottom: 20vh;
 `;
 export const StyledLabel = styled.label`
   display: flex;
@@ -339,7 +340,7 @@ export const Alert = styled.p`
 const Title = styled.h1`
   font-size: 1.5rem;
   letter-spacing: 0rem;
-  font-family: "EthnocentricRegular", sans-serif;
+  font-family: "noah-bold", sans-serif;
   background-color: #bbabe8;
   text-align: center;
 `;

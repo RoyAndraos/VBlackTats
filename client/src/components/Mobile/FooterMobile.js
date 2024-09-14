@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { FaRegCopyright } from "react-icons/fa6";
-import logo from "../../assets/NewLogo.png";
+import logo from "../../assets/logo.png";
 import { FaInstagram } from "react-icons/fa";
 const FooterMobile = () => {
   return (
@@ -19,7 +19,7 @@ const FooterMobile = () => {
 
       <StyledLink
         href="https://www.instagram.com/v.black.tattoos/"
-        style={{ textDecoration: "none", color: "#241445" }}
+        style={{ textDecoration: "none", color: "whitesmoke" }}
       >
         <Bold>Follow me</Bold>
         <span>
@@ -38,7 +38,7 @@ const Bold = styled.span`
 `;
 const Copy = styled.a`
   font-weight: 700;
-  color: #241445;
+  color: whitesmoke;
   position: relative;
   display: flex;
   justify-content: center;
@@ -54,9 +54,9 @@ const Container = styled.div`
   font-size: 14px;
   grid-template-columns: 32vw 50vw;
   padding-left: 5vw;
-  color: #241445;
+  color: whitesmoke;
   span {
-    color: #241445;
+    color: whitesmoke;
   }
 `;
 const StyledLink = styled.a`
@@ -65,7 +65,7 @@ const StyledLink = styled.a`
   grid-template-columns: 32vw 50vw;
   padding-left: 5vw;
   span {
-    color: #241445;
+    color: whitesmoke;
   }
 `;
 const Logo = styled.img`
@@ -77,11 +77,11 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-around;
-  background-color: #bbabe8;
+  background-color: #241445;
   position: relative;
   height: 45vh;
-  padding-top: 13vh;
-  padding: 13vh 0 0 5vw;
+  padding: 3vh 0 0 5vw;
+  border-top: 1px solid #241445;
 `;
 
 export default FooterMobile;

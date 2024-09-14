@@ -33,18 +33,20 @@ const HeaderMobile = () => {
         src={newlogo}
         alt="Initials V.B."
       ></Logo>
-      {location !== "/" && <Title>{location.split("/")[1]}</Title>}
+      {location !== "/" && (
+        <Title>{location.split("/")[1].toUpperCase()}</Title>
+      )}
       <Navbar />
     </Wrapper>
   );
 };
 const Title = styled.h1`
-  font-size: 0.8rem;
+  font-size: 1.5rem;
   color: #241445;
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  font-family: "EthnocentricRegular", sans-serif !important;
+  font-family: "noah-bold", sans-serif !important;
 `;
 const Wrapper = styled.div`
   height: 8vh;

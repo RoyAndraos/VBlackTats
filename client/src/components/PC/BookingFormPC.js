@@ -309,8 +309,10 @@ const FormImageWrapper = styled.div`
 const Title = styled.h1`
   font-size: 2rem;
   position: relative;
-  font-family: "EthnocentricRegular", sans-serif;
+  font-family: "noah-bold", sans-serif;
   background-color: #bbabe8;
+  width: 100%;
+  text-align: ${(props) => (props.$bookingPage ? "center" : "left")};
 `;
 
 export const ImgWrap = styled.div`

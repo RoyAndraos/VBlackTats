@@ -195,7 +195,7 @@ const BookingFormFlash = () => {
       </StyledLabel>
 
       <GetInked disabled={ageAlert || numbeAlert} type="submit">
-        {language === "en" ? "Submit" : "Soumettre"}
+        {language === "en" ? "Get Inked" : "Soumettre"}
       </GetInked>
     </Wrapper>
   );

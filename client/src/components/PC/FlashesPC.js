@@ -209,9 +209,16 @@ const FlashesPC = () => {
   }
   return (
     <Wrapper>
-      <Title style={{ alignSelf: "center", marginLeft: "0" }}>FLASHES</Title>
+      <Title
+        style={{
+          alignSelf: "center",
+          marginLeft: "0",
+        }}
+      >
+        FLASHES
+      </Title>
       <FlashesHead />
-      <Title ref={titleRefTwo}>Featured Work</Title>
+      <Title ref={titleRefTwo}>Featured work</Title>
       {isAdmin && (
         <>
           <AddButton onClick={handleAddClick}>Add A Flash</AddButton>
@@ -355,12 +362,13 @@ const ImagesWrapper = styled.div`
   padding-top: 20px;
 `;
 const Title = styled.h1`
-  letter-spacing: -0.1rem;
-  font-family: "EthnocentricRegular", sans-serif;
-  text-shadow: 3px 3px 0px #c4b6eb, 6px 6px 0px #241441;
+  letter-spacing: -0.5rem;
+  font-family: "noah-bold", sans-serif;
+  /* text-shadow: 3px 3px 0px #c4b6eb, 6px 6px 0px #241441; */
   color: #241441;
   letter-spacing: 0.5rem;
   font-size: 3rem;
+  font-weight: 700;
   align-self: flex-start;
   padding: 0;
   margin-left: 15vw;

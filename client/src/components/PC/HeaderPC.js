@@ -1,5 +1,5 @@
 import styled, { keyframes } from "styled-components";
-import logo from "../../assets/LOGO.svg";
+import logo from "../../assets/NewLogo.png";
 import NavbarPC from "./NavbarPC";
 import { useNavigate } from "react-router-dom";
 import { FaArrowRightLong } from "react-icons/fa6";
@@ -78,7 +78,7 @@ const Wrapper = styled.div`
 const Left = styled.div`
   display: flex;
   align-items: center;
-  gap: 2vw;
+  gap: 4vw;
 `;
 const Logo = styled.img`
   height: 8vh;

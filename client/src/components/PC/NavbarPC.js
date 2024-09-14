@@ -60,11 +60,10 @@ const Wrapper = styled.div`
 const StyledNavLink = styled(NavLink)`
   text-decoration: none;
   color: #241445;
-  font-weight: 700;
-  font-size: 1.1rem;
+  font-weight: 1000;
+  font-size: 1.4rem;
   text-decoration: ${(props) => (props.$isSelected ? "underline" : "none")};
-  letter-spacing: 0.2rem;
-  font-family: "EthnocentricRegular", sans-serif;
+  font-family: "noah-bold", sans-serif;
   cursor: pointer;
 `;
 export default NavbarPC;
