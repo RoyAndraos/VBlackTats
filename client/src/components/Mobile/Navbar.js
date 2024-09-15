@@ -5,11 +5,13 @@ import { LanguageContext } from "../../contexts/LanguageContext";
 import { GetInked } from "../PC/HeaderPC";
 import { FaArrowRight } from "react-icons/fa6";
 import gsap from "gsap";
+import LanguageToggle from "../LanguageToggle";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { language } = useContext(LanguageContext);
   const navigate = useNavigate();
   const burgerRef = useRef(null);
+
   useEffect(() => {
     gsap.fromTo(
       burgerRef.current,
@@ -51,10 +53,9 @@ const Navbar = () => {
             navigate("/afterCare");
           }}
         >
-          {language === "en"
-            ? "After Care Instructions"
-            : "Instructions Post-Tatouage"}
+          {language === "en" ? "After Care Instructions" : "Post-Tatouage"}
         </div>
+        <LanguageToggle />
         <GetInked
           onClick={() => {
             setIsOpen(false);

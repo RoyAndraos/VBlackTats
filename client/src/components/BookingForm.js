@@ -30,6 +30,11 @@ const BookingForm = () => {
   const [budgetAlert, setBudgetAlert] = useState(false);
   const { language } = useContext(LanguageContext);
   const { setIsAdmin } = useContext(IsAdminContext);
+  const [filePreviews, setFilePreviews] = useState({
+    tattooRef: [],
+    placementRef: [],
+  });
+
   useEffect(() => {
     const token = Cookies.get("token");
     if (token) {
@@ -38,12 +43,33 @@ const BookingForm = () => {
   }, [setIsAdmin]);
   const handleFileChange = (e) => {
     const { name, files: selectedFiles } = e.target;
+    const fileNames = Array.from(selectedFiles)
+      .map((file) => file.name)
+      .join(", ");
+
+    // Update formData with files
     setFormData((prev) => ({
       ...prev,
       files: { ...prev.files, [name]: selectedFiles },
     }));
-  };
 
+    // Create object URLs for previews
+    const filePreviews = Array.from(selectedFiles).map((file) =>
+      URL.createObjectURL(file)
+    );
+
+    setFilePreviews((prev) => ({
+      ...prev,
+      [name]: filePreviews,
+    }));
+
+    // Find the file input label
+    const fileInputLabel = document.getElementById(`${name}-label`);
+
+    if (fileInputLabel) {
+      fileInputLabel.textContent = fileNames ? fileNames : "No file chosen";
+    }
+  };
   const onSubmit = async (event) => {
     event.preventDefault();
 
@@ -117,7 +143,9 @@ const BookingForm = () => {
   };
   return (
     <Wrapper onSubmit={onSubmit}>
-      <Title>LET'S GET YOU INKED</Title>
+      <Title>
+        {language === "en" ? "LET'S GET YOU INKED" : "ENCRE TON STYLE!"}
+      </Title>
       <StyledLabel>
         <div>
           {language === "en" ? "First Name" : "Prénom"} <Required>*</Required>
@@ -247,8 +275,26 @@ const BookingForm = () => {
           ? "Tattoo Reference Image(s)"
           : "Image(s) De Référence Du Tatouage"}
         <FileInputWrapper>
-          <CustomButton htmlFor="tattooRef">Choose Files</CustomButton>
-          <FileInputLabel id="file-name-label">No file chosen</FileInputLabel>
+          <CustomButton htmlFor="tattooRef">
+            {language === "en" ? "Choose Images" : "Choisir Les Images"}
+          </CustomButton>
+          <FileInputLabel id="tattooRef-label">
+            {filePreviews.tattooRef.length > 0
+              ? filePreviews.tattooRef.map((src, index) => (
+                  <div key={src}>
+                    {filePreviews.tattooRef.length > 1
+                      ? language === "en"
+                        ? `${filePreviews.length} images selected`
+                        : `${filePreviews.length} images sélectionnées`
+                      : language === "en"
+                      ? `No image chosen`
+                      : `Pas d'image sélectionnée`}
+                  </div>
+                ))
+              : language === "en"
+              ? "No file chosen"
+              : "Aucun fichier choisi"}
+          </FileInputLabel>
           <HiddenFileInput
             type="file"
             name="tattooRef"
@@ -258,16 +304,34 @@ const BookingForm = () => {
           />
         </FileInputWrapper>
       </StyledLabel>
+
       <StyledLabel>
-        {language === "en"
-          ? "Placement Image(s) (body part)"
-          : "Image(s) de référence (partie du corps)"}{" "}
+        {language === "en" ? "Placement Image(s)" : "Image(s) De Placement"}
         <FileInputWrapper>
-          <CustomButton htmlFor="placementRef">Choose Files</CustomButton>
-          <FileInputLabel id="file-name-label">No file chosen</FileInputLabel>
+          <CustomButton htmlFor="placementRef">
+            {language === "en" ? "Choose Images" : "Choisir Les Images"}
+          </CustomButton>
+          <FileInputLabel id="placement-label">
+            {filePreviews.placementRef.length > 0
+              ? filePreviews.placementRef.map((src, index) => (
+                  <div key={src}>
+                    {filePreviews.placementRef.length > 1
+                      ? language === "en"
+                        ? `${filePreviews.length} images selected`
+                        : `${filePreviews.length} images sélectionnées`
+                      : language === "en"
+                      ? `No image chosen`
+                      : `Pas d'image sélectionnée`}
+                  </div>
+                ))
+              : language === "en"
+              ? "No file chosen"
+              : "Aucun fichier choisi"}
+          </FileInputLabel>
           <HiddenFileInput
             type="file"
             name="placementRef"
+            id="placementRef"
             multiple
             onChange={handleFileChange}
           />
@@ -312,13 +376,12 @@ export const Wrapper = styled.form`
   justify-content: center;
   gap: 5vh;
   min-height: 92vh;
-  padding: 5vh 0 15vh 0;
+  padding: 5vh 0 25vh 0;
   align-items: center;
   position: relative;
   background-color: #bbabe8;
   top: 8vh;
   width: 100%;
-  margin-bottom: 20vh;
 `;
 export const StyledLabel = styled.label`
   display: flex;

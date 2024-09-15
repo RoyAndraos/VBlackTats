@@ -2,18 +2,21 @@ import styled from "styled-components";
 import { FaRegCopyright } from "react-icons/fa6";
 import logo from "../../assets/logo.png";
 import { FaInstagram } from "react-icons/fa";
+import { useContext } from "react";
+import { LanguageContext } from "../../contexts/LanguageContext";
 const FooterMobile = () => {
+  const { language } = useContext(LanguageContext);
   return (
     <Wrapper>
       <Logo src={logo} />
       <Container>
-        <Bold>Studio address</Bold>
+        <Bold>{language === "en" ? "Studio address" : "Addresse"}</Bold>
         <span>
           429 Avenue Viger E <br /> Montreal, QC, H2L 2N9
         </span>
       </Container>
       <Container>
-        <Bold>Email address</Bold>
+        <Bold>{language === "en" ? "Email address" : "Addresse Courriel"}</Bold>
         <span> V.Black.Tattoos@gmail.com</span>
       </Container>
 

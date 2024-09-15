@@ -10,6 +10,8 @@ import { MdOutlineCameraswitch } from "react-icons/md";
 import BookingForm from "../BookingForm";
 import FeaturedWork from "../PC/FeaturedWork";
 import gsap from "gsap";
+import { LanguageContext } from "../../contexts/LanguageContext";
+import sticker from "../../assets/stickerVeroSmall.png";
 const HomePageMobile = () => {
   const navigate = useNavigate();
   const [selectedFile, setSelectedFile] = useState();
@@ -17,6 +19,7 @@ const HomePageMobile = () => {
   const [oldImageId, setOldImageId] = useState("");
   const fileInputRef = useRef(null);
   const [loading, setLoading] = useState(false);
+  const { language } = useContext(LanguageContext);
   const { setIsAdmin, isAdmin } = useContext(IsAdminContext);
   const imgWrapRef = useRef(null);
   const secondImgWrapRef = useRef(null);
@@ -102,9 +105,7 @@ const HomePageMobile = () => {
         <SlidingOverlay ref={imgWrapRef} />
         <SlidingOverlayTwo ref={secondImgWrapRef} />
         <OverLay />
-
-        <Line />
-        <LineTwo />
+        <Sticker src={sticker} alt="flash sticker" />
 
         {isAdmin && (
           <>
@@ -139,7 +140,7 @@ const HomePageMobile = () => {
             navigate("/book");
           }}
         >
-          GET INKED!{" "}
+          {language === "en" ? "GET INKED!" : "ENCRE TON STYLE!"}
           <span>
             <FaArrowRight />
           </span>
@@ -150,21 +151,28 @@ const HomePageMobile = () => {
     </Wrapper>
   );
 };
-
+const Sticker = styled.img`
+  position: absolute;
+  width: 20vw;
+  height: auto;
+  bottom: 10vh;
+  right: 15vw;
+  opacity: 0.9;
+`;
 const SlidingOverlay = styled.div`
   background-color: #241441;
-  width: 91%;
   position: absolute;
-  z-index: 10000;
   top: 51vh;
+  z-index: 10000;
+  width: 91%;
 `;
 
 const SlidingOverlayTwo = styled.div`
   background-color: #241441;
-  width: 91%;
   position: absolute;
-  z-index: 10000;
   bottom: 19vh;
+  z-index: 10000;
+  width: 91%;
 `;
 
 const GetInked = styled.button`
@@ -250,21 +258,21 @@ const ImageWrap = styled.div`
   justify-content: center;
   align-items: center;
 `;
-const Line = styled.div`
-  position: absolute;
-  height: 70vh;
-  width: 3vw;
-  background-color: #bbabe8;
-  right: 30vw;
-`;
-const LineTwo = styled.div`
-  position: absolute;
-  height: 3vw;
-  width: 90vw;
-  background-color: #bbabe8;
-  left: 5vw;
-  top: 50vh;
-`;
+// const Line = styled.div`
+//   position: absolute;
+//   height: 70vh;
+//   width: 3vw;
+//   background-color: #bbabe8;
+//   right: 30vw;
+// `;
+// const LineTwo = styled.div`
+//   position: absolute;
+//   height: 3vw;
+//   width: 90vw;
+//   background-color: #bbabe8;
+//   left: 5vw;
+//   top: 50vh;
+// `;
 
 const FileInput = styled.input`
   display: none;

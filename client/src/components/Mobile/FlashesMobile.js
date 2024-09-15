@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import ConfirmationModal from "../ConfirmationModal";
 import { GetInked } from "../PC/HeaderPC";
 import Loader from "../PC/Loader";
+import { LanguageContext } from "../../contexts/LanguageContext";
 const FlashesMobile = () => {
   const [images, setImages] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -17,6 +18,7 @@ const FlashesMobile = () => {
   });
   const [loading, setLoading] = useState(false);
   const { isAdmin } = useContext(IsAdminContext);
+  const { language } = useContext(LanguageContext);
   const navigate = useNavigate();
   const fileInputRef = useRef(null);
   useEffect(() => {
@@ -116,7 +118,7 @@ const FlashesMobile = () => {
   } else if (images.length === 0) {
     return (
       <Wrapper>
-        No images found
+        {language === "en" ? "No images found" : "Aucune image trouvée"}
         {isAdmin && (
           <>
             <AddButton onClick={handleAddClick}>+</AddButton>
@@ -229,11 +231,15 @@ const FlashesMobile = () => {
                   }}
                 >
                   {" "}
-                  <Info style={{ fontWeight: "700" }}>price </Info>{" "}
+                  <Info style={{ fontWeight: "700" }}>
+                    {language === "en" ? "price" : "prix"}{" "}
+                  </Info>{" "}
                   <Info>{img.price}</Info>{" "}
                 </div>
                 <div style={{ display: "flex", alignItems: "center" }}>
-                  <Info style={{ fontWeight: "700" }}>size </Info>
+                  <Info style={{ fontWeight: "700" }}>
+                    {language === "en" ? "size" : "taille"}{" "}
+                  </Info>
                   <Info>{img.size}</Info>
                 </div>
               </BottomWrapp>
@@ -243,7 +249,7 @@ const FlashesMobile = () => {
                   navigate(`/book/${img.public_id.split("Flash/")[1]}`);
                 }}
               >
-                Book
+                {language === "en" ? "Book" : "Réserver"}
               </GetInked>
             </Flash>
           );
