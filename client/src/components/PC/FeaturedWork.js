@@ -5,6 +5,7 @@ import ConfirmationModal from "../ConfirmationModal";
 import Cookies from "js-cookie";
 import Loader from "./Loader";
 import gsap from "gsap";
+import { LanguageContext } from "../../contexts/LanguageContext";
 
 const FeaturedWork = () => {
   const [images, setImages] = useState([]);
@@ -13,6 +14,7 @@ const FeaturedWork = () => {
   const [deleteId, setDeleteId] = useState(null);
   const [loading, setLoading] = useState(false);
   const { isAdmin, setIsAdmin } = useContext(IsAdminContext);
+  const { language } = useContext(LanguageContext);
   const fileInputRef = useRef(null);
   const wrapperRef = useRef(null);
 
@@ -121,18 +123,26 @@ const FeaturedWork = () => {
   if (loading) {
     return (
       <Wrapper>
-        <Title>FEATURED WORK</Title>
+        <Title>
+          {language === "en" ? "Featured Work" : "Nos Réalisations"}
+        </Title>
         <Loader />
       </Wrapper>
     );
   } else if (!images) {
     return (
       <Wrapper ref={wrapperRef}>
-        <Title>FEATURED WORK</Title>
-        No images found
+        <Title>
+          {language === "en" ? "Featured Work" : "Nos Réalisations"}
+        </Title>
+        {language === "en" ? "No images found" : "Aucune image trouvée"}
         {isAdmin && (
           <>
-            <AddButton onClick={handleAddClick}>Add Featured Image</AddButton>
+            <AddButton onClick={handleAddClick}>
+              {language === "en"
+                ? "Add Featured Image"
+                : "Ajouter aux réalisations"}
+            </AddButton>
             <FileInput
               type="file"
               ref={fileInputRef}
@@ -155,10 +165,15 @@ const FeaturedWork = () => {
   }
   return (
     <Wrapper ref={wrapperRef}>
-      <Title>FEATURED WORK</Title>
+      <Title>{language === "en" ? "Featured Work" : "Nos Réalisations"}</Title>
       {isAdmin && (
         <>
-          <AddButton onClick={handleAddClick}>Add Featured Image</AddButton>
+          <AddButton onClick={handleAddClick}>
+            {" "}
+            {language === "en"
+              ? "Add Featured Image"
+              : "Ajouter aux réalisations"}
+          </AddButton>
           <FileInput
             type="file"
             ref={fileInputRef}
@@ -171,7 +186,9 @@ const FeaturedWork = () => {
                 alt="Preview"
               />
 
-              <SubmitButton onClick={handleSubmit}>Submit</SubmitButton>
+              <SubmitButton onClick={handleSubmit}>
+                {language === "en" ? "Submit" : "Envoyer"}
+              </SubmitButton>
             </>
           )}
         </>

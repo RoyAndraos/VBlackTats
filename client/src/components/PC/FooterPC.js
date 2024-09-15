@@ -1,11 +1,13 @@
 import styled from "styled-components";
 import { FaInstagram } from "react-icons/fa";
-import LOGO from "../../assets/LOGO.svg";
+import LOGO from "../../assets/NewLogo.png";
 import { FaRegCopyright } from "react-icons/fa";
 import gsap from "gsap";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useContext } from "react";
+import { LanguageContext } from "../../contexts/LanguageContext";
 const FooterPC = () => {
   const wrapperRef = useRef(null);
+  const { language } = useContext(LanguageContext);
   useEffect(() => {
     gsap.fromTo(
       wrapperRef.current,
@@ -29,13 +31,14 @@ const FooterPC = () => {
         </IconLabel>
         <IconLabel>
           {" "}
-          Street Address{" "}
+          {language === "en" ? "Street Address" : "Addresse"}{" "}
           <span>
             429 Avenue Viger <br /> E, Montreal, QC
           </span>
         </IconLabel>
         <IconLabel>
-          Email Address <span> V.Black.Tattoos@gmail.com</span>
+          {language === "en" ? "Email Address" : "Addresse Courriel"}{" "}
+          <span> V.Black.Tattoos@gmail.com</span>
         </IconLabel>
         <StyledLink href="https://www.instagram.com/v.black.tattoos/">
           Follow Me <Insta /> <span>Instagram</span>

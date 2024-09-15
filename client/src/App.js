@@ -19,6 +19,7 @@ import FlashesPC from "./components/PC/FlashesPC";
 import BookingFormPC from "./components/PC/BookingFormPC";
 import BookingFormFlashPC from "./components/PC/BookingFormFlashPC";
 import TransitionComponent from "./components/TransitionComponent";
+import Thanks from "./components/Thanks";
 const App = () => {
   const { isMobile } = useContext(IsMobileContext);
   const location = useLocation();
@@ -138,6 +139,14 @@ const App = () => {
             element={
               <TransitionComponent>
                 <HomePagePC />
+              </TransitionComponent>
+            }
+          />
+          <Route
+            path="/thankyou"
+            element={
+              <TransitionComponent>
+                <Thanks />
               </TransitionComponent>
             }
           />

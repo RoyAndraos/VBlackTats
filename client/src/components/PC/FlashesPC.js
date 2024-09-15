@@ -13,6 +13,8 @@ import Cookies from "js-cookie";
 import { GetInked } from "./HeaderPC";
 import FlashesHead from "./FlashesHead";
 import { TimelineLite } from "gsap";
+import { LanguageContext } from "../../contexts/LanguageContext";
+
 const FlashesPC = () => {
   const [images, setImages] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -25,6 +27,7 @@ const FlashesPC = () => {
   });
   const [loading, setLoading] = useState(false);
   const { isAdmin, setIsAdmin } = useContext(IsAdminContext);
+  const { language } = useContext(LanguageContext);
   const navigate = useNavigate();
   const fileInputRef = useRef(null);
   const contentWrapperRef = useRef(null);
@@ -144,11 +147,15 @@ const FlashesPC = () => {
   } else if (images.length === 0) {
     return (
       <Wrapper>
-        <Title style={{ alignSelf: "center" }}>FLASHES</Title>
-        No images found
+        <Title style={{ alignSelf: "center" }}>
+          {language === "en" ? "FLASHES" : "FLASH"}
+        </Title>
+        {language === "en" ? "No images found" : "Aucune image trouvée"}
         {isAdmin && (
           <>
-            <AddButton onClick={handleAddClick}>+</AddButton>
+            <AddButton onClick={handleAddClick}>
+              {language === "en" ? "Add Flash" : "Ajouter Un Flash"}
+            </AddButton>
             <FileInput
               type="file"
               ref={fileInputRef}
@@ -174,7 +181,7 @@ const FlashesPC = () => {
                   />
                 </LabelInput>
                 <LabelInput>
-                  Price
+                  {language === "en" ? "Price" : "Prix"}
                   <StyledInput
                     type="text"
                     required
@@ -187,7 +194,7 @@ const FlashesPC = () => {
                   />
                 </LabelInput>
                 <LabelInput>
-                  Size
+                  {language === "en" ? "Size" : "Taille"}
                   <StyledInput
                     type="text"
                     required
@@ -199,7 +206,9 @@ const FlashesPC = () => {
                     }}
                   />
                 </LabelInput>
-                <SubmitButton onClick={handleSubmit}>Submit</SubmitButton>
+                <SubmitButton onClick={handleSubmit}>
+                  {language === "en" ? "Submit" : "Soumettre"}
+                </SubmitButton>
               </StyledForm>
             )}
           </>
@@ -215,13 +224,17 @@ const FlashesPC = () => {
           marginLeft: "0",
         }}
       >
-        FLASHES
+        {language === "en" ? "FLASHES" : "FLASH"}
       </Title>
       <FlashesHead />
-      <Title ref={titleRefTwo}>Featured work</Title>
+      <Title ref={titleRefTwo}>
+        {language === "en" ? "Featured work" : "Nos Réalisations"}
+      </Title>
       {isAdmin && (
         <>
-          <AddButton onClick={handleAddClick}>Add A Flash</AddButton>
+          <AddButton onClick={handleAddClick}>
+            {language === "en" ? "Add A Flash" : "Ajouter Un Flash"}
+          </AddButton>
           <FileInput
             type="file"
             ref={fileInputRef}
@@ -247,7 +260,7 @@ const FlashesPC = () => {
                 />
               </LabelInput>
               <LabelInput>
-                Price
+                {language === "en" ? "Price" : "Prix"}
                 <StyledInput
                   type="text"
                   required
@@ -260,7 +273,7 @@ const FlashesPC = () => {
                 />
               </LabelInput>
               <LabelInput>
-                Size
+                {language === "en" ? "Size" : "Taille"}
                 <StyledInput
                   type="text"
                   required
@@ -272,7 +285,9 @@ const FlashesPC = () => {
                   }}
                 />
               </LabelInput>
-              <SubmitButton onClick={handleSubmit}>Submit</SubmitButton>
+              <SubmitButton onClick={handleSubmit}>
+                {language === "en" ? "Submit" : "Soumettre"}
+              </SubmitButton>
             </StyledForm>
           )}
         </>
@@ -293,14 +308,21 @@ const FlashesPC = () => {
               <FlashImage src={img.url} alt={"flash tattoo"} />
               <OverLay />
               <BottomWrapp>
-                <Info>price: {img.price}</Info> <Info>size: {img.size}</Info>
+                <Info>
+                  <span>{language === "en" ? "Price" : "Prix"}</span>{" "}
+                  {img.price},
+                </Info>{" "}
+                <Info>
+                  <span>{language === "en" ? "Size" : "Taille "}</span>
+                  {img.size}
+                </Info>
               </BottomWrapp>
               <GetInked
                 onClick={() => {
                   navigate(`/bookFlash/${img.public_id.split("Flash/")[1]}`);
                 }}
               >
-                Book
+                {language === "en" ? "Book" : "Réserver"}
               </GetInked>
             </Flash>
           );
@@ -348,6 +370,11 @@ const Info = styled.p`
   font-size: 1.2rem;
   margin: 5px;
   cursor: default;
+  span {
+    &:first-child {
+      font-weight: 700;
+    }
+  }
 `;
 
 const ImagesWrapper = styled.div`

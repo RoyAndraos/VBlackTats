@@ -11,6 +11,7 @@ import ConfirmationModal from "../ConfirmationModal";
 import Cookies from "js-cookie";
 import TattoosHead from "./TattoosHead";
 import { TimelineLite } from "gsap";
+import { LanguageContext } from "../../contexts/LanguageContext";
 const TattoosPC = () => {
   const [images, setImages] = useState([]);
   const [selectedFile, setSelectedFile] = useState();
@@ -18,6 +19,7 @@ const TattoosPC = () => {
   const [deleteId, setDeleteId] = useState(null);
   const [loading, setLoading] = useState(false);
   const { isAdmin, setIsAdmin } = useContext(IsAdminContext);
+  const { language } = useContext(LanguageContext);
   const fileInputRef = useRef(null);
   const contentWrapperRef = useRef(null);
   const titleRefTwo = useRef(null);
@@ -132,7 +134,7 @@ const TattoosPC = () => {
     return (
       <Wrapper>
         <TattoosHead />
-        No images found
+        {language === "en" ? "No images found" : "Aucune image trouvée"}
         {isAdmin && (
           <div
             style={{
@@ -141,7 +143,9 @@ const TattoosPC = () => {
               justifyContent: "center",
             }}
           >
-            <AddButton onClick={handleAddClick}>+</AddButton>
+            <AddButton onClick={handleAddClick}>
+              {language === "en" ? "Add Tattoo" : "Ajouter Un Tattoo"}
+            </AddButton>
             <FileInput
               type="file"
               ref={fileInputRef}
@@ -154,7 +158,9 @@ const TattoosPC = () => {
                   alt="Preview"
                 />
 
-                <SubmitButton onClick={handleSubmit}>Submit</SubmitButton>
+                <SubmitButton onClick={handleSubmit}>
+                  {language === "en" ? "Submit" : "Soumettre"}
+                </SubmitButton>
               </>
             )}
           </div>
@@ -166,10 +172,15 @@ const TattoosPC = () => {
     <Wrapper>
       <Title style={{ alignSelf: "center", marginLeft: "0" }}>TATTOOS</Title>
       <TattoosHead />
-      <Title ref={titleRefTwo}>Featured work</Title>
+      <Title ref={titleRefTwo}>
+        {" "}
+        {language === "en" ? "Featured work" : "Nos Réalisations"}
+      </Title>
       {isAdmin && (
         <>
-          <AddButton onClick={handleAddClick}>Add A Tattoo</AddButton>
+          <AddButton onClick={handleAddClick}>
+            {language === "en" ? "Add A Tattoo" : "Ajouter Un Tattoo"}
+          </AddButton>
           <FileInput
             type="file"
             ref={fileInputRef}
@@ -182,7 +193,9 @@ const TattoosPC = () => {
                 alt="Preview"
               />
 
-              <SubmitButton onClick={handleSubmit}>Submit</SubmitButton>
+              <SubmitButton onClick={handleSubmit}>
+                {language === "en" ? "Submit" : "Soumettre"}
+              </SubmitButton>
             </>
           )}
         </>

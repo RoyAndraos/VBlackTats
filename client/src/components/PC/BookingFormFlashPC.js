@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { GetInked } from "./HeaderPC";
 import { StyledTextArea } from "./BookingFormPC";
 import { FaArrowRight } from "react-icons/fa6";
+import { useNavigate } from "react-router-dom";
 const BookingFormFlash = () => {
   const [ageAlert, setAgeAlert] = useState(false);
   const [image, setImage] = useState("");
@@ -23,6 +24,7 @@ const BookingFormFlash = () => {
   const params = useParams();
   const [numbeAlert, setNumberAlert] = useState(false);
   const { language } = useContext(LanguageContext);
+  const { navigate } = useNavigate();
 
   useEffect(() => {
     fetch(`https://vblacktats.onrender.com/getFlashById/${params.id}`)
@@ -59,15 +61,17 @@ const BookingFormFlash = () => {
 
     try {
       const response = await fetch(
-        "https://vblacktats.onrender.com/submitBookingFlash",
+        // https://vblacktats.onrender.com
+        "http://localhost:5000/submitBookingFlash",
         {
           method: "POST",
           body: formDataToSend,
         }
       );
       const data = await response.json();
+      console.log(data);
       if (data.success) {
-        alert("Booking submitted successfully");
+        navigate("/thankyou");
       } else {
         alert("Failed to submit booking");
       }
@@ -101,7 +105,9 @@ const BookingFormFlash = () => {
     <Container>
       <StyledForm onSubmit={onSubmit}>
         <Title style={{ letterSpacing: "0", gridColumn: "1 / -1" }}>
-          LET'S GET YOU INKED
+          {language === "en"
+            ? "LET'S GET YOU INKED"
+            : "RÉSERVEZ VOTRE TATOUAGE"}
         </Title>
         <StyledLabel>
           <div>

@@ -87,7 +87,6 @@ const sendEmail = async (req, res) => {
 const sendEmailForFlash = async (req, res) => {
   const { fname, lname, email, phone, age, placement } = req.body;
   const tattooRef = req.file; // multer processes single file as `req.file`
-
   try {
     const attachments = [];
 

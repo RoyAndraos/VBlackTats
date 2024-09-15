@@ -8,6 +8,7 @@ import { IsAdminContext } from "../../contexts/IsAdminContext";
 import { FileInput } from "./TattoosPC";
 import ButtonLoader from "./ButtonLoader";
 import gsap from "gsap";
+import { LanguageContext } from "../../contexts/LanguageContext";
 const LandingPage = () => {
   const navigate = useNavigate();
   const [selectedFile, setSelectedFile] = useState();
@@ -16,6 +17,7 @@ const LandingPage = () => {
   const fileInputRef = useRef(null);
   const [loading, setLoading] = useState(false);
   const { setIsAdmin, isAdmin } = useContext(IsAdminContext);
+  const { language } = useContext(LanguageContext);
   const overLayRef = useRef(null);
   const imageRightRef = useRef(null);
   const imageLeftRef = useRef(null);
@@ -171,7 +173,7 @@ const LandingPage = () => {
         }}
         ref={buttonRef}
       >
-        GET INKED!{" "}
+        {language === "en" ? "GET INKED!" : "ENCRE TON STYLE!"}{" "}
         <span>
           <FaArrowRightLong style={{ fontSize: "1.5rem" }} />
         </span>

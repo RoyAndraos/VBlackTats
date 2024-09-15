@@ -5,7 +5,10 @@ const LanguageToggle = () => {
   const { language, setLanguage } = useContext(LanguageContext);
   return (
     <div
-      style={{ color: "whitesmoke", fontSize: "1.2rem" }}
+      style={{
+        textDecorationThickness: "1px",
+        textDecorationLine: "underline",
+      }}
       onClick={() => {
         if (language === "en") {
           setLanguage("fr");
@@ -14,7 +17,7 @@ const LanguageToggle = () => {
         }
       }}
     >
-      En/Fr
+      {language === "en" ? "FR" : "EN"}
     </div>
   );
 };

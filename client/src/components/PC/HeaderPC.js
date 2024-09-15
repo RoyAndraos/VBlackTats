@@ -3,12 +3,15 @@ import logo from "../../assets/NewLogo.png";
 import NavbarPC from "./NavbarPC";
 import { useNavigate } from "react-router-dom";
 import { FaArrowRightLong } from "react-icons/fa6";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useContext } from "react";
+import { LanguageContext } from "../../contexts/LanguageContext";
+
 import gsap from "gsap";
 const HeaderPC = () => {
   const navigate = useNavigate();
   const logoRef = useRef(null);
   const buttonRef = useRef(null);
+  const { language } = useContext(LanguageContext);
   useEffect(() => {
     gsap.fromTo(
       logoRef.current,
@@ -55,7 +58,7 @@ const HeaderPC = () => {
           navigate("/book");
         }}
       >
-        GET INKED!{" "}
+        {language === "en" ? "GET INKED!" : "ENCRE!"}{" "}
         <span>
           <FaArrowRightLong style={{ fontSize: "1.5rem" }} />
         </span>

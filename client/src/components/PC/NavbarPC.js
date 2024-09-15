@@ -1,10 +1,14 @@
 import gsap from "gsap";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useContext } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import styled from "styled-components";
+import LanguageToggle from "../LanguageToggle";
+import { LanguageContext } from "../../contexts/LanguageContext";
+
 const NavbarPC = () => {
   const location = useLocation();
   const linkRef = useRef([]);
+  const { language } = useContext(LanguageContext);
   useEffect(() => {
     //animation for links to come down from top, fade in one after the other
     gsap.fromTo(
@@ -29,7 +33,7 @@ const NavbarPC = () => {
         $isSelected={location.pathname === "/flashes"}
         to="/flashes"
       >
-        FLASHES
+        {language === "en" ? "FLASHES" : "FLASH"}
       </StyledNavLink>
       <StyledNavLink
         ref={(el) => (linkRef.current[1] = el)}
@@ -43,7 +47,14 @@ const NavbarPC = () => {
         to="/afterCare"
         ref={(el) => (linkRef.current[2] = el)}
       >
-        AFTER CARE
+        {language === "en" ? "AFTER CARE" : "POST•TATOUAGE"}
+      </StyledNavLink>
+      <StyledNavLink
+        ref={(el) => (linkRef.current[3] = el)}
+        $isSelected={location.pathname === "/book"}
+        style={{ textDecoration: "unset" }}
+      >
+        <LanguageToggle />
       </StyledNavLink>
     </Wrapper>
   );

@@ -24,28 +24,56 @@ const BookingFormPC = ({ book }) => {
   const [numbeAlert, setNumberAlert] = useState(false);
   const [ageAlert, setAgeAlert] = useState(false);
   const [budgetAlert, setBudgetAlert] = useState(false);
+  const [filePreviews, setFilePreviews] = useState({
+    tattooRef: [],
+    placementRef: [],
+  });
   const { language } = useContext(LanguageContext);
   const { setIsAdmin } = useContext(IsAdminContext);
+
   useEffect(() => {
     const token = Cookies.get("token");
     if (token) {
       setIsAdmin(true);
     }
   }, [setIsAdmin]);
+  useEffect(() => {
+    return () => {
+      // Revoke object URLs when component unmounts
+      filePreviews.tattooRef.forEach((url) => URL.revokeObjectURL(url));
+      filePreviews.placementRef.forEach((url) => URL.revokeObjectURL(url));
+    };
+  }, [filePreviews]);
   const handleFileChange = (e) => {
     const { name, files: selectedFiles } = e.target;
     const fileNames = Array.from(selectedFiles)
       .map((file) => file.name)
       .join(", ");
 
+    // Update formData with files
     setFormData((prev) => ({
       ...prev,
       files: { ...prev.files, [name]: selectedFiles },
     }));
 
-    const fileInputLabel = e.target.nextSibling; // Assuming nextSibling is FileInputLabel
-    fileInputLabel.textContent = fileNames ? fileNames : "No file chosen";
+    // Create object URLs for previews
+    const filePreviews = Array.from(selectedFiles).map((file) =>
+      URL.createObjectURL(file)
+    );
+
+    setFilePreviews((prev) => ({
+      ...prev,
+      [name]: filePreviews,
+    }));
+
+    // Find the file input label
+    const fileInputLabel = document.getElementById(`${name}-label`);
+
+    if (fileInputLabel) {
+      fileInputLabel.textContent = fileNames ? fileNames : "No file chosen";
+    }
   };
+
   const onSubmit = async (event) => {
     event.preventDefault();
 
@@ -108,7 +136,9 @@ const BookingFormPC = ({ book }) => {
   };
   return (
     <Container $bookingPage={book} className="book">
-      <Title style={{ letterSpacing: "0" }}>LET'S GET YOU INKED</Title>
+      <Title style={{ letterSpacing: "0" }}>
+        {language === "en" ? "LET'S GET YOU INKED" : "ENCRE TON STYLE!"}
+      </Title>
       <FormImageWrapper>
         <StyledForm onSubmit={onSubmit}>
           <StyledLabel>
@@ -238,9 +268,50 @@ const BookingFormPC = ({ book }) => {
               ? "Tattoo Reference Image(s)"
               : "Image(s) De Référence Du Tatouage"}
             <FileInputWrapper>
-              <CustomButton htmlFor="tattooRef">Choose Files</CustomButton>
-              <FileInputLabel id="file-name-label">
-                No file chosen
+              <CustomButton htmlFor="tattooRef">
+                {language === "en" ? "Choose Images" : "Choisir Les Images"}
+              </CustomButton>
+              <FileInputLabel id="tattooRef-label">
+                {filePreviews.tattooRef.length > 0
+                  ? filePreviews.tattooRef.map((src, index) => (
+                      <div key={src}>
+                        {index <= 1 && (
+                          <div
+                            style={{
+                              position: "absolute",
+                              left: `${index * 60}px` /* Adjust as needed */,
+                              top: "50px",
+                              display: "inline-block",
+                            }}
+                          >
+                            <img
+                              src={src}
+                              alt={`preview-${index}`}
+                              style={{
+                                width: "50px",
+                                height: "auto",
+                                marginRight: "5px",
+                              }}
+                            />
+                          </div>
+                        )}
+                        {index > 1 && (
+                          <div
+                            style={{
+                              position: "absolute",
+                              left: `${index * 60}px` /* Adjust as needed */,
+                              top: "50px",
+                              display: "inline-block",
+                            }}
+                          >
+                            {language === "fr" && "+"}
+                            {filePreviews.tattooRef.length - index}{" "}
+                            {language === "en" && "more"}
+                          </div>
+                        )}
+                      </div>
+                    ))
+                  : "No file chosen"}
               </FileInputLabel>
               <HiddenFileInput
                 type="file"
@@ -251,18 +322,62 @@ const BookingFormPC = ({ book }) => {
               />
             </FileInputWrapper>
           </StyledLabel>
+
           <StyledLabel>
-            {language === "en"
-              ? "Placement Image(s) (body part)"
-              : "Image(s) de référence (partie du corps)"}{" "}
+            {language === "en" ? "Placement Image(s)" : "Image(s) De Placement"}
             <FileInputWrapper>
-              <CustomButton htmlFor="placementRef">Choose Files</CustomButton>
-              <FileInputLabel id="file-name-label">
-                No file chosen
+              <CustomButton htmlFor="placementRef">
+                {language === "en" ? "Choose Images" : "Choisir Les Images"}
+              </CustomButton>
+              <FileInputLabel id="placement-label">
+                {filePreviews.placementRef.length > 0
+                  ? filePreviews.placementRef.map((src, index) => (
+                      <div key={src}>
+                        {index <= 1 && (
+                          <div
+                            style={{
+                              position: "absolute",
+                              right: `${
+                                (index + 0.5) * 60
+                              }px` /* Adjust as needed */,
+                              top: "50px",
+                              display: "inline-block",
+                            }}
+                          >
+                            <img
+                              src={src}
+                              alt={`preview-${index}`}
+                              style={{
+                                width: "50px",
+                                height: "auto",
+                                marginRight: "5px",
+                              }}
+                            />
+                          </div>
+                        )}
+                        {index > 1 &&
+                          index === filePreviews.placementRef.length - 2 && (
+                            <div
+                              style={{
+                                position: "absolute",
+                                right: `0` /* Adjust as needed */,
+                                top: "50px",
+                                display: "inline-block",
+                              }}
+                            >
+                              {language === "fr" && "+"}
+                              {filePreviews.placementRef.length - index}{" "}
+                              {language === "en" && "more"}
+                            </div>
+                          )}
+                      </div>
+                    ))
+                  : "No file chosen"}
               </FileInputLabel>
               <HiddenFileInput
                 type="file"
                 name="placementRef"
+                id="placementRef"
                 multiple
                 onChange={handleFileChange}
               />
