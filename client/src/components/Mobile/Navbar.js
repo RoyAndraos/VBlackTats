@@ -11,7 +11,6 @@ const Navbar = () => {
   const navigate = useNavigate();
   const burgerRef = useRef(null);
   useEffect(() => {
-    console.log(burgerRef);
     gsap.fromTo(
       burgerRef.current,
       {

@@ -15,18 +15,17 @@ cloudinary.config({
 const { MailtrapClient } = require("mailtrap");
 
 const mailtrapClient = new MailtrapClient({
-  endpoint: process.env.EMAIL_ENDPOINT,
-  token: process.env.EMAIL_PASSWORD,
+  token: process.env.EMAIL_TOKEN,
 });
 
 const sender = {
-  email: "mailtrap@royandraos.com",
+  email: "mailtrap@vblacktattoos.com",
   name: "Tattoo Shop",
 };
 const recipients = [
   //change to v.black.tattoos@gmail.com
   {
-    email: "roy_andraos@live.fr",
+    email: "v.black.tattoos@gmail.com",
   },
 ];
 
@@ -45,7 +44,6 @@ const sendEmail = async (req, res) => {
 
   const tattooRef = req.files.tattooRef;
   const placementRef = req.files.placementRef;
-
   try {
     const attachments = [];
 

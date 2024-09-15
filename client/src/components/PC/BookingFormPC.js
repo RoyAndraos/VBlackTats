@@ -16,7 +16,6 @@ const BookingFormPC = ({ book }) => {
     placement: "",
     size: "",
     description: "",
-    availability: [],
     files: {
       tattooRef: [],
       placementRef: [],
@@ -35,12 +34,18 @@ const BookingFormPC = ({ book }) => {
   }, [setIsAdmin]);
   const handleFileChange = (e) => {
     const { name, files: selectedFiles } = e.target;
+    const fileNames = Array.from(selectedFiles)
+      .map((file) => file.name)
+      .join(", ");
+
     setFormData((prev) => ({
       ...prev,
       files: { ...prev.files, [name]: selectedFiles },
     }));
-  };
 
+    const fileInputLabel = e.target.nextSibling; // Assuming nextSibling is FileInputLabel
+    fileInputLabel.textContent = fileNames ? fileNames : "No file chosen";
+  };
   const onSubmit = async (event) => {
     event.preventDefault();
 
@@ -53,9 +58,6 @@ const BookingFormPC = ({ book }) => {
     formDataToSend.append("placement", formData.placement);
     formDataToSend.append("size", formData.size);
     formDataToSend.append("description", formData.description);
-    formData.availability.forEach((item, index) =>
-      formDataToSend.append(`availability[${index}]`, item)
-    );
     formDataToSend.append("budget", formData.budget);
 
     Array.from(formData.files.tattooRef).forEach((file) => {
@@ -65,7 +67,6 @@ const BookingFormPC = ({ book }) => {
     Array.from(formData.files.placementRef).forEach((file) => {
       formDataToSend.append("placementRef", file);
     });
-
     try {
       const response = await fetch(
         "https://vblacktats.onrender.com/submitBooking",
@@ -86,34 +87,27 @@ const BookingFormPC = ({ book }) => {
       console.error("Error:", error);
     }
   };
-
-  const hangleChange = (e) => {
-    if (e.target.name === "phone") {
-      if (isNaN(e.target.value)) {
-        setNumberAlert(true);
-        return;
-      } else {
-        setNumberAlert(false);
-      }
-    } else if (e.target.name === "age") {
-      if (isNaN(e.target.value)) {
-        setAgeAlert(true);
-        return;
-      } else {
-        setAgeAlert(false);
-      }
-    } else if (e.target.name === "budget") {
-      if (isNaN(e.target.value)) {
-        setBudgetAlert(true);
-        return;
-      } else {
-        setBudgetAlert(false);
-      }
+  const validateInput = (name, value) => {
+    if (["phone", "age", "budget"].includes(name) && isNaN(value)) {
+      if (name === "phone") setNumberAlert(true);
+      if (name === "age") setAgeAlert(true);
+      if (name === "budget") setBudgetAlert(true);
+      return false;
+    } else {
+      setNumberAlert(false);
+      setAgeAlert(false);
+      setBudgetAlert(false);
+      return true;
     }
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    if (validateInput(name, value)) {
+      setFormData({ ...formData, [name]: value });
+    }
   };
   return (
-    <Container $bookingPage={book}>
+    <Container $bookingPage={book} className="book">
       <Title style={{ letterSpacing: "0" }}>LET'S GET YOU INKED</Title>
       <FormImageWrapper>
         <StyledForm onSubmit={onSubmit}>
@@ -125,7 +119,7 @@ const BookingFormPC = ({ book }) => {
             <StyledInput
               type="text"
               name="fname"
-              onChange={(e) => hangleChange(e)}
+              onChange={(e) => handleChange(e)}
               required
             />
           </StyledLabel>
@@ -137,7 +131,7 @@ const BookingFormPC = ({ book }) => {
             <StyledInput
               type="text"
               name="lname"
-              onChange={(e) => hangleChange(e)}
+              onChange={(e) => handleChange(e)}
               required
             />
           </StyledLabel>
@@ -148,7 +142,7 @@ const BookingFormPC = ({ book }) => {
             <StyledInput
               type="text"
               name="email"
-              onChange={(e) => hangleChange(e)}
+              onChange={(e) => handleChange(e)}
               required
             />
           </StyledLabel>
@@ -161,7 +155,7 @@ const BookingFormPC = ({ book }) => {
               $numbealert={numbeAlert}
               type="text"
               name="phone"
-              onChange={(e) => hangleChange(e)}
+              onChange={(e) => handleChange(e)}
               required
             />
             {numbeAlert ? (
@@ -180,7 +174,7 @@ const BookingFormPC = ({ book }) => {
               $agealert={ageAlert}
               type="text"
               name="age"
-              onChange={(e) => hangleChange(e)}
+              onChange={(e) => handleChange(e)}
               required
             />
             {ageAlert ? (
@@ -198,7 +192,7 @@ const BookingFormPC = ({ book }) => {
             <StyledInput
               type="text"
               name="placement"
-              onChange={(e) => hangleChange(e)}
+              onChange={(e) => handleChange(e)}
               required
             />
           </StyledLabel>
@@ -210,7 +204,7 @@ const BookingFormPC = ({ book }) => {
             <StyledInput
               type="text"
               name="size"
-              onChange={(e) => hangleChange(e)}
+              onChange={(e) => handleChange(e)}
               required
             />
           </StyledLabel>
@@ -221,7 +215,7 @@ const BookingFormPC = ({ book }) => {
             <StyledInput
               type="text"
               name="budget"
-              onChange={(e) => hangleChange(e)}
+              onChange={(e) => handleChange(e)}
             />
             {budgetAlert ? (
               <Alert>
@@ -236,7 +230,7 @@ const BookingFormPC = ({ book }) => {
             <StyledTextArea
               type="textarea"
               name="description"
-              onChange={(e) => hangleChange(e)}
+              onChange={(e) => handleChange(e)}
             />
           </StyledLabel>
           <StyledLabel>
@@ -311,10 +305,16 @@ const Title = styled.h1`
   position: relative;
   font-family: "noah-bold", sans-serif;
   background-color: #bbabe8;
-  width: 100%;
-  text-align: ${(props) => (props.$bookingPage ? "center" : "left")};
+  width: ${(props) => (props.$bookingPage ? "100%" : "unset")};
+  text-align: ${(props) =>
+    props.$bookingPage
+      ? "center"
+      : "left"}; /* Center when booking page is true */
+  margin: ${(props) =>
+    props.$bookingPage
+      ? "0 auto"
+      : "unset"}; /* Only apply auto margin when booking page is true */
 `;
-
 export const ImgWrap = styled.div`
   position: relative;
 `;
@@ -330,12 +330,16 @@ export const BeautyImage = styled.img`
   height: 70vh;
   object-fit: cover;
 `;
-export const Container = styled.div`
+const Container = styled.div`
   width: ${(props) => (props.$bookingPage ? "100%" : "70vw")};
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  justify-content: ${(props) =>
+    props.$bookingPage ? "center" : "flex-start"}; /* Conditional centering */
+  align-items: ${(props) =>
+    props.$bookingPage
+      ? "center"
+      : "flex-start"}; /* Conditional horizontal centering */
   background-color: #bbabe8;
   position: relative;
   height: ${(props) => (props.$bookingPage ? "90vh" : "unset")};
@@ -407,7 +411,7 @@ export const StyledInput = styled.input`
 export const StyledTextArea = styled.textarea`
   border-radius: 4px;
   border: 2px solid #241441;
-  padding: 5px 15px;
+  padding: 10px;
   background-color: transparent;
 `;
 

@@ -297,7 +297,7 @@ const FlashesPC = () => {
               </BottomWrapp>
               <GetInked
                 onClick={() => {
-                  navigate(`/book/${img.public_id.split("Flash/")[1]}`);
+                  navigate(`/bookFlash/${img.public_id.split("Flash/")[1]}`);
                 }}
               >
                 Book

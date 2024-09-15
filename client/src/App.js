@@ -110,7 +110,7 @@ const App = () => {
             }
           />
           <Route
-            path="/book/:id"
+            path="/bookFlash/:id"
             element={
               <TransitionComponent>
                 <BookingFormFlashPC />

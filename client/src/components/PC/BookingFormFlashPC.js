@@ -3,16 +3,7 @@ import { LanguageContext } from "../../contexts/LanguageContext";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { GetInked } from "./HeaderPC";
-import {
-  StyledForm,
-  ImgWrap,
-  BeautyImage,
-  Overlay,
-  Container,
-  StyledInput,
-  StyledTextArea,
-} from "./BookingFormPC";
-import formImg from "../../assets/formImg.jpg";
+import { StyledTextArea } from "./BookingFormPC";
 import { FaArrowRight } from "react-icons/fa6";
 const BookingFormFlash = () => {
   const [ageAlert, setAgeAlert] = useState(false);
@@ -106,14 +97,12 @@ const BookingFormFlash = () => {
   if (image.length === 0) {
     return <Wrapper>Loading...</Wrapper>;
   }
-
   return (
-    <Container $bookingPage={true}>
+    <Container>
       <StyledForm onSubmit={onSubmit}>
-        <StyledLabel style={{ gridColumn: "1 / -1" }}>
-          <Title style={{ letterSpacing: "0" }}>LET'S GET YOU INKED</Title>
-          <StyledPreview src={image.url} alt={image.name} />
-        </StyledLabel>
+        <Title style={{ letterSpacing: "0", gridColumn: "1 / -1" }}>
+          LET'S GET YOU INKED
+        </Title>
         <StyledLabel>
           <div>
             {language === "en" ? "First Name" : "Prénom"} <Required>*</Required>
@@ -216,6 +205,7 @@ const BookingFormFlash = () => {
             fontSize: "1rem",
             justifyContent: "center",
             gap: "1vw",
+            padding: "10px",
           }}
           type="submit"
         >
@@ -225,24 +215,49 @@ const BookingFormFlash = () => {
           </span>
         </GetInked>
       </StyledForm>
-      <ImgWrap>
+      {/* <ImgWrap>
         <Overlay />
         <BeautyImage alt="cool man" src={formImg} />
-      </ImgWrap>
+      </ImgWrap> */}
+      <StyledPreview src={image.url} alt={image.name} />
     </Container>
   );
 };
 
+const StyledInput = styled.input`
+  outline: 1px solid
+    ${(props) => (props.$numbealert || props.$agealert ? "red" : "transparent")};
+  border: none;
+  background-color: transparent;
+  border: 2px solid #241441;
+  border-radius: 4px;
+  padding: 10px;
+`;
+const Container = styled.div`
+  width: 100vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 5vw;
+  align-items: flex-start;
+  background-color: #bbabe8;
+  padding-top: 5vh;
+  position: relative;
+  top: 10vh;
+  min-height: 80vh;
+`;
+
+const StyledForm = styled.form`
+  display: grid;
+  height: 80%;
+  gap: 20px; /* Space between form fields */
+  grid-template-columns: 50% 50%;
+  margin: 5vh 0;
+`;
+
 const StyledPreview = styled.img`
-  width: 100%;
+  width: 25vw;
   height: auto;
-  margin: 0 auto;
-  @media (min-width: 1000px) {
-    max-width: 30vw;
-    max-height: 50vh;
-    height: auto;
-    width: auto;
-  }
 `;
 
 const Required = styled.span`
@@ -274,7 +289,7 @@ const Alert = styled.p`
 export const Title = styled.h1`
   font-size: 2rem;
   left: 0;
-  font-family: "EthnocentricRegular", sans-serif;
+  font-family: "noah-bold", sans-serif;
   background-color: #bbabe8;
 `;
 
