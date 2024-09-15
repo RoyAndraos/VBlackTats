@@ -36,6 +36,7 @@ app.use(
     origin: [
       "http://localhost:3000",
       "https://master--vblacktattoos.netlify.app",
+      "https://vblacktattoos.com",
     ], // Replace with the origin of your front-end application
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
