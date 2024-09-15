@@ -26,6 +26,8 @@ const {
   getLandingPageImage,
   getTattoosPageImage,
   getFlashesPageImage,
+  getLandingPageImagePC,
+  uploadLandingPageImagePC,
 } = require("./server");
 
 const app = express();
@@ -50,6 +52,7 @@ app.get("/getTattoos", getTattoos);
 app.get("/getFlashById/:id", getFlashById);
 app.get("/getFeatured", getFeatured);
 app.get("/getLandingPageImage", getLandingPageImage);
+app.get("/getLandingPageImagePC", getLandingPageImagePC);
 app.get("/getTattoosPageImage", getTattoosPageImage);
 app.get("/getFlashesPageImage", getFlashesPageImage);
 
@@ -59,6 +62,11 @@ app.post(
   "/uploadLandingPageImage",
   upload.single("file"),
   uploadLandingPageImage
+);
+app.post(
+  "/uploadLandingPageImagePC",
+  upload.single("file"),
+  uploadLandingPageImagePC
 );
 app.post("/uploadTattoosImage", upload.single("file"), uploadTattoosImage);
 app.post("/uploadFlashesImage", upload.single("file"), uploadFlashesImage);

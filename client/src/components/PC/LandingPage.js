@@ -88,7 +88,7 @@ const LandingPage = () => {
     if (token) {
       setIsAdmin(true);
     }
-    fetch("https://vblacktats.onrender.com/getLandingPageImage")
+    fetch("https://vblacktats.onrender.com/getLandingPageImagePC")
       .then((res) => res.json())
       .then((data) => {
         setImage(data.data[0]);
@@ -109,7 +109,7 @@ const LandingPage = () => {
       formData.append("file", selectedFile);
       formData.append("oldImage", oldImageId);
       setLoading(true);
-      fetch("https://vblacktats.onrender.com/uploadLandingPageImage", {
+      fetch("https://vblacktats.onrender.com/uploadLandingPageImagePC", {
         method: "POST",
         body: formData,
       })
@@ -266,6 +266,5 @@ export const StyledImage = styled.img`
   object-fit: cover;
   width: 70%;
   height: 50vh;
-  object-position: 0 80%;
 `;
 export default LandingPage;

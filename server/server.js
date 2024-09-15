@@ -155,6 +155,33 @@ const verifyToken = async (req, res, next) => {
 //-------------------------------------------------------------------------------------------------------
 // GET ENDPOINTS
 //-------------------------------------------------------------------------------------------------------
+const getLandingPageImagePC = async (req, res) => {
+  try {
+    // Perform the search query to retrieve images from the "Flash" folder
+    const result = await cloudinary.search
+      .expression("folder:LandingPagePC/*")
+      .execute();
+
+    // Check if the result contains resources (images)
+    const images = result.resources;
+
+    if (images && images.length > 0) {
+      // If images are found, return them in the response
+      return res
+        .status(200)
+        .json({ status: 200, message: "Success", data: images });
+    } else {
+      // If no images are found, return a 404 response
+      return res.status(404).json({ status: 404, message: "No images found" });
+    }
+  } catch (error) {
+    // Handle any errors that occur during the search
+    console.error("Error fetching images:", error);
+    return res
+      .status(500)
+      .json({ status: 500, message: "Internal server error" });
+  }
+};
 const getLandingPageImage = async (req, res) => {
   try {
     // Perform the search query to retrieve images from the "Flash" folder
@@ -487,7 +514,43 @@ const uploadFeatured = async (req, res) => {
     res.status(500).json({ status: 500, message: error.message });
   }
 };
+const uploadLandingPageImagePC = async (req, res) => {
+  const oldImage = req.body.oldImage;
+  try {
+    const file = req.file; // Access the uploaded file
+    if (!file) {
+      return res.status(400).json({ status: 400, message: "No file uploaded" });
+    }
+    //remove oldImage then upload the new one
+    const result = await cloudinary.uploader.destroy(`${oldImage}`);
+    if (result.result === "ok") {
+      // Upload the file buffer to Cloudinary
+      const uploadStream = cloudinary.uploader.upload_stream(
+        { folder: "LandingPagePC" },
+        (error, result) => {
+          if (error) {
+            console.error("Error uploading to Cloudinary:", error);
+            return res
+              .status(500)
+              .json({ status: 500, message: error.message });
+          }
 
+          res.json({
+            status: 200,
+            message: "Image uploaded",
+            data: result,
+          });
+        }
+      );
+
+      // Pipe the file buffer to the Cloudinary upload stream
+      uploadStream.end(file.buffer); // Use `file.buffer` for memoryStorage
+    }
+  } catch (error) {
+    console.error("Error uploading image:", error);
+    res.status(500).json({ status: 500, message: error.message });
+  }
+};
 const uploadLandingPageImage = async (req, res) => {
   const oldImage = req.body.oldImage;
   try {
@@ -689,4 +752,6 @@ module.exports = {
   getLandingPageImage,
   getTattoosPageImage,
   getFlashesPageImage,
+  uploadLandingPageImagePC,
+  getLandingPageImagePC,
 };
