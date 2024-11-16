@@ -171,7 +171,8 @@ const BookingForm = () => {
       </StyledLabel>
       <StyledLabel>
         <div>
-          {language === "en" ? "Email" : "Courriel"} <Required>*</Required>
+          {language === "en" ? "Email Address" : "Adresse Courriel"}{" "}
+          <Required>*</Required>
         </div>
         <StyledInput
           type="text"

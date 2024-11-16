@@ -28,7 +28,7 @@ const AfterCare = () => {
             {language === "en" ? "WHAT TO DO" : "CE QU'IL FAUT FAIRE"}
           </Title>
           <SmallTitles>
-            {language === "en" ? "KEEP IT COVERED" : "GARDER COUVER"}
+            {language === "en" ? "KEEP IT COVERED" : "GARDER COUVERT"}
           </SmallTitles>
           <ListItem>
             {language === "en"
@@ -36,16 +36,29 @@ const AfterCare = () => {
               : "Votre nouveau tatouage a soit une seconde peau, soit simplement du cellophane. Gardez-le couvert pendant 3-5 jours lors de l'utilisation d'une seconde peau, et 4-7 heures lors de l'utilisation de cellophane (changez le cellophane environ 3 fois par jour, en le nettoyant avant de le remballer)."}
           </ListItem>
           <SmallTitles>
-            {" "}
             {language === "en" ? "KEEP IT CLEAN" : "GARDER PROPRE"}
           </SmallTitles>
           <ListItem>
-            {language === "en"
-              ? " After removing the wrap (or the second skin), gently wash your tattoo with lukewarm water and mild/fragrance free soap. <br /> Pat it dry with a clean paper towel, or let it air dry for 10-15 minutes."
-              : "Après avoir retiré le cellophane (ou la seconde peau), lavez doucement votre tatouage à l'eau tiède et au savon doux/sans parfum. <br />  Tamponnez-le avec une serviette en papier propre, ou laissez-le sécher à l'air pendant 10-15 minutes."}
+            {language === "en" ? (
+              <>
+                After removing the wrap (or the second skin), gently wash your
+                tattoo with lukewarm water and mild/fragrance-free soap.
+                <br />
+                Pat it dry with a clean paper towel, or let it air dry for 10-15
+                minutes.
+              </>
+            ) : (
+              <>
+                Après avoir retiré le cellophane (ou la seconde peau), lavez
+                doucement votre tatouage à l'eau tiède et au savon doux/sans
+                parfum.
+                <br />
+                Tamponnez-le avec une serviette en papier propre, ou laissez-le
+                sécher à l'air pendant 10-15 minutes.
+              </>
+            )}
           </ListItem>
           <SmallTitles>
-            {" "}
             {language === "en" ? "MOISTURIZE IT" : "GARDER HYDRATÉ"}
           </SmallTitles>
           <ListItem>
@@ -59,29 +72,51 @@ const AfterCare = () => {
               : "ÉVITEZ L'EXPOSITION AU SOLEIL"}
           </SmallTitles>
           <ListItem>
-            {language === "en"
-              ? "Avoid direct sunlight, tanning beds, and swimming pools/hot tubs for at least 2 weeks. <br /> UV rays can fade the ink and damage the skin."
-              : "Évitez l'exposition directe au soleil, les lits de bronzage et les piscines/bains à remous pendant au moins 2 semaines. <br /> Les rayons UV peuvent estomper l'encre et endommager la peau."}
+            {language === "en" ? (
+              <>
+                Avoid direct sunlight, tanning beds, and swimming pools/hot tubs
+                for at least 2 weeks.
+                <br />
+                UV rays can fade the ink and damage the skin.
+              </>
+            ) : (
+              <>
+                Évitez l'exposition directe au soleil, les lits de bronzage et
+                les piscines/bains à remous pendant au moins 2 semaines.
+                <br />
+                Les rayons UV peuvent estomper l'encre et endommager la peau.
+              </>
+            )}
           </ListItem>
           <SmallTitles>
             {language === "en" ? "LET IT BREATHE" : "LAISSEZ-LE RESPIRER"}
           </SmallTitles>
           <ListItem>
-            {language === "en"
-              ? "Wear loose clothing to avoid rubbing the tattoo. <br />Avoid tight clothing, as it can irritate the skin."
-              : "Portez des vêtements amples pour éviter de frotter le tatouage. <br /> Évitez les vêtements serrés, car ils peuvent irriter la peau."}
+            {language === "en" ? (
+              <>
+                Wear loose clothing to avoid rubbing the tattoo.
+                <br />
+                Avoid tight clothing, as it can irritate the skin.
+              </>
+            ) : (
+              <>
+                Portez des vêtements amples pour éviter de frotter le tatouage.
+                <br />
+                Évitez les vêtements serrés, car ils peuvent irriter la peau.
+              </>
+            )}
           </ListItem>
         </UnorderedList>
         <ImgWrapp>
           <OverLay />
-          <Image src={aftercareone}></Image>
+          <Image src={aftercareone} />
         </ImgWrapp>
       </Top>
       <Bottom>
         {!isMobile && (
           <ImgWrapp>
             <OverLay />
-            <Image src={aftercareone}></Image>
+            <Image src={aftercareone} />
           </ImgWrapp>
         )}
         <UnorderedList>
@@ -127,14 +162,14 @@ const AfterCare = () => {
           </SmallTitles>
           <ListItem>
             {language === "en"
-              ? "Avoid exposing the tattoo to excessive heat, such as saunas, steam rooms or the sun. Heat can cause the skin to swell and the tattoo to become irritated."
+              ? "Avoid exposing the tattoo to excessive heat, such as saunas, steam rooms, or the sun. Heat can cause the skin to swell and the tattoo to become irritated."
               : "Évitez d'exposer le tatouage à une chaleur excessive, comme les saunas, les hammams ou le soleil. La chaleur peut faire gonfler la peau et irriter le tatouage."}
           </ListItem>
         </UnorderedList>
         {isMobile && (
           <ImgWrapp>
             <OverLay />
-            <Image src={aftercaretwo}></Image>
+            <Image src={aftercaretwo} />
           </ImgWrapp>
         )}
       </Bottom>
