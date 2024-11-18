@@ -376,8 +376,8 @@ export const Wrapper = styled.form`
   flex-direction: column;
   justify-content: center;
   gap: 5vh;
-  min-height: 92vh;
-  padding: 5vh 0 25vh 0;
+  min-height: auto;
+  padding: 5vh 0;
   align-items: center;
   position: relative;
   background-color: #bbabe8;

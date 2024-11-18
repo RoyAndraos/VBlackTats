@@ -271,7 +271,7 @@ const Wrapper = styled.div`
 `;
 const UnorderedList = styled.ul`
   padding-left: 2rem;
-  padding-right: 1rem;
+  padding-right: 2rem;
   list-style-type: none;
   &:first-of-type {
     margin-top: 2vh;
