@@ -84,6 +84,9 @@ const Wrapper = styled.div`
   position: relative;
   height: 45vh;
   padding: 3vh 0 0 5vw;
+  top: 10vh;
+  width: 100vw;
+  bottom: 0;
   border-top: 1px solid #241445;
 `;
 

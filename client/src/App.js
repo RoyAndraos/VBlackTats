@@ -5,7 +5,6 @@ import HomePageMobile from "./components/Mobile/HomePageMobile";
 import HeaderMobile from "./components/Mobile/HeaderMobile";
 import HeaderPC from "./components/PC/HeaderPC";
 import HomePagePC from "./components/PC/HomePagePC";
-import FooterMobile from "./components/Mobile/FooterMobile";
 import FooterPC from "./components/PC/FooterPC";
 import styled from "styled-components";
 import BookingForm from "./components/BookingForm";
@@ -154,17 +153,10 @@ const App = () => {
       )}
       {isMobile ? <HeaderMobile /> : <HeaderPC />}
 
-      {isMobile ? (
-        location.pathname === "/book" || location.pathname === "/admin" ? (
-          <></>
-        ) : (
-          <FooterMobile></FooterMobile>
-        )
-      ) : location.pathname === "/book" || location.pathname === "/admin" ? (
-        <></>
-      ) : (
-        <FooterPC />
-      )}
+      {!isMobile &&
+        (location.pathname === "/book" || location.pathname === "/admin") && (
+          <FooterPC />
+        )}
     </Wrapper>
   );
 };

@@ -9,6 +9,8 @@ import {
   FileInputWrapper,
   CustomButton,
 } from "./PC/BookingFormPC";
+import { useLocation } from "react-router-dom";
+import FooterMobile from "./Mobile/FooterMobile";
 const BookingForm = () => {
   const [formData, setFormData] = useState({
     fname: "",
@@ -34,7 +36,7 @@ const BookingForm = () => {
     tattooRef: [],
     placementRef: [],
   });
-
+  const locaton = useLocation().pathname;
   useEffect(() => {
     const token = Cookies.get("token");
     if (token) {
@@ -346,6 +348,7 @@ const BookingForm = () => {
           {language === "en" ? "Get Inked" : "Soumettre"}
         </GetInked>
       </ButtonWrapper>
+      {locaton === "/book" && <FooterMobile />}
     </Wrapper>
   );
 };
@@ -361,6 +364,7 @@ const GetInked = styled.button`
   z-index: 1000;
   position: absolute;
   right: 10vw;
+  bottom: -2vh;
 `;
 export const ButtonWrapper = styled.div`
   width: 100%;

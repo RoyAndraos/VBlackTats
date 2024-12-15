@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { IsAdminContext } from "../../contexts/IsAdminContext";
 import ConfirmationModal from "../ConfirmationModal";
 import Loader from "../PC/Loader";
+import FooterMobile from "./FooterMobile";
 const TattoosMobile = () => {
   const [images, setImages] = useState([]);
   const [selectedFile, setSelectedFile] = useState();
@@ -172,6 +173,7 @@ const TattoosMobile = () => {
         onConfirm={handleConfirmDelete}
         onCancel={handleCancelDelete}
       />
+      <FooterMobile />
     </Wrapper>
   );
 };

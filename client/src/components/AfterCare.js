@@ -4,6 +4,7 @@ import { IsMobileContext } from "../contexts/IsMobileContext";
 import aftercareone from "../assets/AfterCare.jpg";
 import { LanguageContext } from "../contexts/LanguageContext";
 import aftercaretwo from "../assets/aftercaretwo.jpg";
+import FooterMobile from "./Mobile/FooterMobile";
 const AfterCare = () => {
   const { isMobile } = useContext(IsMobileContext);
   const { language } = useContext(LanguageContext);
@@ -173,6 +174,7 @@ const AfterCare = () => {
           </ImgWrapp>
         )}
       </Bottom>
+      {isMobile && <FooterMobile />}
     </Wrapper>
   );
 };

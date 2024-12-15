@@ -12,6 +12,7 @@ import FeaturedWork from "../PC/FeaturedWork";
 import gsap from "gsap";
 import { LanguageContext } from "../../contexts/LanguageContext";
 import sticker from "../../assets/stickerVeroSmall.png";
+import FooterMobile from "./FooterMobile";
 const HomePageMobile = () => {
   const navigate = useNavigate();
   const [selectedFile, setSelectedFile] = useState();
@@ -148,6 +149,7 @@ const HomePageMobile = () => {
       </ImageWrap>
       <FeaturedWork />
       <BookingForm />
+      <FooterMobile />
     </Wrapper>
   );
 };
@@ -233,7 +235,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  padding: 3vh 0;
+  padding: 3vh 0 0 0;
   position: relative;
   background-color: #bbabe8;
   top: 8vh;

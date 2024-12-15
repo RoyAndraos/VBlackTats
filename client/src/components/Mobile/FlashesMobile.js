@@ -6,6 +6,7 @@ import ConfirmationModal from "../ConfirmationModal";
 import { GetInked } from "../PC/HeaderPC";
 import Loader from "../PC/Loader";
 import { LanguageContext } from "../../contexts/LanguageContext";
+import FooterMobile from "./FooterMobile";
 const FlashesMobile = () => {
   const [images, setImages] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -260,6 +261,7 @@ const FlashesMobile = () => {
         onConfirm={handleConfirmDelete}
         onCancel={handleCancelDelete}
       />
+      <FooterMobile />
     </Wrapper>
   );
 };
