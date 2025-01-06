@@ -31,5 +31,10 @@ const StyledLoader = styled.div`
       transform: rotate(1turn);
     }
   }
+  @media (max-width: 1000px) {
+    position: relative;
+    top: 50%;
+    left: 50%;
+  }
 `;
 export default Loader;

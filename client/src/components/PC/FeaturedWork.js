@@ -17,7 +17,7 @@ const FeaturedWork = () => {
   const { language } = useContext(LanguageContext);
   const fileInputRef = useRef(null);
   const wrapperRef = useRef(null);
-
+  const isMobile = window.innerWidth < 1000;
   useEffect(() => {
     gsap.fromTo(
       wrapperRef.current,
@@ -121,7 +121,11 @@ const FeaturedWork = () => {
     setIsModalVisible(false);
   };
   if (loading) {
-    return (
+    return isMobile ? (
+      <div style={{ height: "90vh", position: "relative", width: "100vw" }}>
+        <Loader />
+      </div>
+    ) : (
       <Wrapper>
         <Title>
           {language === "en" ? "Featured Work" : "Nos Réalisations"}
@@ -231,7 +235,6 @@ const Title = styled.h1`
   background-color: #bbabe8;
   @media (max-width: 1000px) {
     position: relative;
-    text-align: center;
     top: 0;
     font-size: 1.5rem;
   }
@@ -249,6 +252,7 @@ const Wrapper = styled.div`
   margin-bottom: 10vh;
   @media (max-width: 1000px) {
     width: 100vw;
+    top: 0;
   }
 `;
 const ImagesWrapper = styled.div`

@@ -102,6 +102,7 @@ const HomePageMobile = () => {
   };
   return (
     <Wrapper>
+      <FeaturedWork />
       <ImageWrap>
         <SlidingOverlay ref={imgWrapRef} />
         <SlidingOverlayTwo ref={secondImgWrapRef} />
@@ -147,7 +148,6 @@ const HomePageMobile = () => {
           </span>
         </GetInked>
       </ImageWrap>
-      <FeaturedWork />
       <BookingForm />
       <FooterMobile />
     </Wrapper>
@@ -239,6 +239,7 @@ const Wrapper = styled.div`
   position: relative;
   background-color: #bbabe8;
   top: 8vh;
+  overflow-y: scroll;
 `;
 const Greetings = styled.h1`
   color: black;
