@@ -133,7 +133,7 @@ const FeaturedWork = () => {
         <Loader />
       </Wrapper>
     );
-  } else if (!images) {
+  } else if (images.length === 0) {
     return (
       <Wrapper ref={wrapperRef}>
         <Title>
@@ -253,6 +253,7 @@ const Wrapper = styled.div`
   @media (max-width: 1000px) {
     width: 100vw;
     top: 0;
+    overflow-y: hidden;
   }
 `;
 const ImagesWrapper = styled.div`
@@ -265,6 +266,7 @@ const ImagesWrapper = styled.div`
     align-items: center;
     justify-content: center;
     width: 100vw;
+    overflow-y: hidden;
   }
 `;
 const ImageWrap = styled.div`
