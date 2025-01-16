@@ -61,8 +61,8 @@ const BookingFormFlash = () => {
 
     try {
       const response = await fetch(
-        // https://vblacktats.onrender.com
-        "http://localhost:5000/submitBookingFlash",
+        //
+        "https://vblacktats.onrender.com/submitBookingFlash",
         {
           method: "POST",
           body: formDataToSend,
