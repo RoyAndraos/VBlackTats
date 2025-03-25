@@ -117,7 +117,6 @@ const Wrapper = styled.div`
   width: ${(props) => (props.$isOpen ? "45px" : "50px")};
   height: ${(props) => (props.$isOpen ? "27px" : "27px")};
   position: relative;
-  overflow: hidden;
   z-index: 1000;
 `;
 

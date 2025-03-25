@@ -260,7 +260,6 @@ const Wrapper = styled.div`
   min-height: 90vh;
   top: 10vh;
   background-color: #bbabe8;
-  overflow: hidden;
   padding-bottom: 10vh;
   margin-bottom: 10vh;
 `;

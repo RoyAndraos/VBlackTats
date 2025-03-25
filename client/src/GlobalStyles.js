@@ -41,10 +41,11 @@ html {
 }
 
 /* General styling if you want to ensure scrolling works */
-body, html {
-  overflow: auto;  /* Ensures scrolling behavior is allowed */
+html, body {
+  height: 100%;    /* Ensure full height for scrolling */
+  overflow-x: hidden; /* Prevent horizontal overflow */
+  overflow-y: auto;  /* Enable vertical scrolling */
 }
-
 `;
 
 export default GlobalStyles;

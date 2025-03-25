@@ -107,7 +107,6 @@ const FlashesHead = () => {
           style={{
             position: "relative",
             right: "-15vw",
-            overflow: "hidden",
             display: "flex",
             justifyContent: "center",
             flexDirection: "column",
@@ -159,7 +158,6 @@ const RightOverLayer = styled.div`
 const Wrapper = styled.div`
   width: 100%;
   padding-bottom: 5vh;
-  overflow: hidden;
 `;
 const SubmitButton = styled.button`
   background-color: #241441;
