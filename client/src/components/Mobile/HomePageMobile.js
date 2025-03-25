@@ -195,7 +195,14 @@ const GetInked = styled.button`
   right: 5vw;
   &:hover {
     span {
-      animation: ${bounce} 0.5s ease-in-out infinite; /* Bounce effect */
+      animation: ${bounce} 0.5s ease-in-out infinite;
+    }
+  }
+  @media (max-width: 768px) {
+    &:hover {
+      span {
+        animation: none;
+      }
     }
   }
 `;
@@ -210,8 +217,8 @@ const SubmitButton = styled.button`
   margin: 20px;
   border-radius: 5px;
   left: 0;
-  min-width: 120px; /* Set a minimum width for the button */
-  min-height: 40px; /* Set a minimum height for the button */
+  min-width: 120px;
+  min-height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -239,7 +246,6 @@ const Wrapper = styled.div`
   position: relative;
   background-color: #bbabe8;
   top: 8vh;
-  overflow-y: scroll;
 `;
 const Greetings = styled.h1`
   color: black;
@@ -261,21 +267,6 @@ const ImageWrap = styled.div`
   justify-content: center;
   align-items: center;
 `;
-// const Line = styled.div`
-//   position: absolute;
-//   height: 70vh;
-//   width: 3vw;
-//   background-color: #bbabe8;
-//   right: 30vw;
-// `;
-// const LineTwo = styled.div`
-//   position: absolute;
-//   height: 3vw;
-//   width: 90vw;
-//   background-color: #bbabe8;
-//   left: 5vw;
-//   top: 50vh;
-// `;
 
 const FileInput = styled.input`
   display: none;
