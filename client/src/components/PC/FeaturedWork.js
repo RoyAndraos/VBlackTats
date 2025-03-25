@@ -19,20 +19,14 @@ const FeaturedWork = () => {
   const wrapperRef = useRef(null);
   const isMobile = window.innerWidth < 1000;
   useEffect(() => {
-    gsap.fromTo(
-      wrapperRef.current,
-      {
-        opacity: 0,
-        y: 100,
-      },
-      {
-        opacity: 1,
-        duration: 1,
-        y: 0,
-        delay: 2.6,
-      }
-    );
-  }, []);
+    if (wrapperRef.current) {
+      gsap.fromTo(
+        wrapperRef.current,
+        { opacity: 0, y: 100 },
+        { opacity: 1, duration: 1, y: 0, delay: 0.6 }
+      );
+    }
+  }, [loading]);
 
   useEffect(() => {
     const token = Cookies.get("token");
@@ -253,7 +247,6 @@ const Wrapper = styled.div`
   @media (max-width: 1000px) {
     width: 100vw;
     top: 0;
-    overflow-y: hidden;
   }
 `;
 const ImagesWrapper = styled.div`
@@ -266,7 +259,6 @@ const ImagesWrapper = styled.div`
     align-items: center;
     justify-content: center;
     width: 100vw;
-    overflow-y: hidden;
   }
 `;
 const ImageWrap = styled.div`
