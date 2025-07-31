@@ -5,8 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { useEffect, useRef, useContext } from "react";
 import { LanguageContext } from "../../contexts/LanguageContext";
-
 import gsap from "gsap";
+
 const HeaderPC = () => {
   const navigate = useNavigate();
   const logoRef = useRef(null);
